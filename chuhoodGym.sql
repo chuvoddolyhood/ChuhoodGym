@@ -136,6 +136,14 @@ FROM Employee E JOIN Work W ON E.ID_Work=W.ID_Work;
 --Set ID max
 SELECT MAX(ID_Employee) AS MAX_ID FROM Employee;
 
+SELECT * FROM Employee
+--Xoa nhan vien
+DELETE Employee WHERE ID_Employee='E007' AND Name_Employee='rewt';
+
+--Chinh sua thong tin
+UPDATE Employee SET Name_Employee='Hoang Thien Nhi', Sex='Male',DOB='2019-02-18',Emp_Address='Thao Dien Quan 2',Phone_Number='0906627513',Email='tom@gmail',ID_Work='W02',Start_Working_Day='2021-03-30', Allowance=0 WHERE ID_Employee='E005';
+
+
 --Nhap username && password -> title work
 SELECT W.Title_Work
 FROM Employee E JOIN Account A ON E.ID_Employee=A.ID_Employee

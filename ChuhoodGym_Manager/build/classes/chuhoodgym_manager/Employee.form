@@ -91,7 +91,11 @@
                 <Column editable="true" title="Title 4" type="java.lang.Object"/>
               </Table>
             </Property>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblEmployeeMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -116,7 +120,7 @@
                       <Group type="102" attributes="0">
                           <Component id="rdbNam" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="26" max="32767" attributes="0"/>
-                          <Component id="rdnNu" min="-2" max="-2" attributes="0"/>
+                          <Component id="rdbNu" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <Component id="spnDOB" max="32767" attributes="0"/>
@@ -169,7 +173,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" max="32767" attributes="0"/>
                       <Component id="rdbNam" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="rdnNu" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdbNu" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cmbWork" alignment="3" max="32767" attributes="0"/>
                   </Group>
@@ -251,7 +255,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdbNamActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="rdnNu">
+        <Component class="javax.swing.JRadioButton" name="rdbNu">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup1"/>
@@ -259,7 +263,7 @@
             <Property name="text" type="java.lang.String" value="Nu"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdnNuActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdbNuActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="spnDOB">
@@ -322,7 +326,7 @@
               <StringArray count="4">
                 <StringItem index="0" value="Quan ly"/>
                 <StringItem index="1" value="PT"/>
-                <StringItem index="2" value="Tao vu"/>
+                <StringItem index="2" value="Tap vu"/>
                 <StringItem index="3" value="Bao ve"/>
               </StringArray>
             </Property>
@@ -357,16 +361,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDelActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnClear">
       <Properties>
         <Property name="text" type="java.lang.String" value="Clear"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnModify">
       <Properties>
         <Property name="text" type="java.lang.String" value="Modify"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModifyActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

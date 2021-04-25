@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -57,7 +59,7 @@ public class Employee extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         rdbNam = new javax.swing.JRadioButton();
-        rdnNu = new javax.swing.JRadioButton();
+        rdbNu = new javax.swing.JRadioButton();
         spnDOB = new javax.swing.JSpinner();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAddress = new javax.swing.JTextArea();
@@ -89,6 +91,12 @@ public class Employee extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblEmployee.setFocusable(false);
+        tblEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEmployeeMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblEmployee);
 
         jLabel1.setText("ID");
@@ -111,11 +119,11 @@ public class Employee extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(rdnNu);
-        rdnNu.setText("Nu");
-        rdnNu.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rdbNu);
+        rdbNu.setText("Nu");
+        rdbNu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdnNuActionPerformed(evt);
+                rdbNuActionPerformed(evt);
             }
         });
 
@@ -136,7 +144,7 @@ public class Employee extends javax.swing.JFrame {
 
         jLabel10.setText("Allowance");
 
-        cmbWork.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quan ly", "PT", "Tao vu", "Bao ve" }));
+        cmbWork.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quan ly", "PT", "Tap vu", "Bao ve" }));
 
         spnDateWorking.setModel(new javax.swing.SpinnerDateModel());
         spnDateWorking.setEditor(new javax.swing.JSpinner.DateEditor(spnDateWorking, "dd/MM/YYYY"));
@@ -160,7 +168,7 @@ public class Employee extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(rdbNam)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(rdnNu)
+                        .addComponent(rdbNu)
                         .addGap(24, 24, 24))
                     .addComponent(spnDOB)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
@@ -202,7 +210,7 @@ public class Employee extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(rdbNam)
-                    .addComponent(rdnNu)
+                    .addComponent(rdbNu)
                     .addComponent(jLabel8)
                     .addComponent(cmbWork))
                 .addGap(29, 29, 29)
@@ -237,10 +245,25 @@ public class Employee extends javax.swing.JFrame {
         });
 
         btnDel.setText("Delete");
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
 
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         btnModify.setText("Modify");
+        btnModify.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModifyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -369,14 +392,11 @@ public class Employee extends javax.swing.JFrame {
         }catch(Exception ex){
             System.out.println(ex);
         }
-        
         return id; 
     }
     
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if(confirmInfoEmployee()==true){
-            JOptionPane.showMessageDialog(rootPane, "OK");
-            
             String query="INSERT INTO Employee VALUES(?,?,?,?,?,?,?,?,?,?);";
             String id=txtID.getText();
             String name=txtName.getText();
@@ -406,18 +426,12 @@ public class Employee extends javax.swing.JFrame {
                 ps.setInt(10, allowance);
                 
                 ps.executeUpdate();
-                
-                
             }catch(Exception ex){
                 System.out.println(ex);
             }
-
-              
-            
-            
+            btnClearActionPerformed(evt);
+            loadInfoEmployee();
         }
-      
-
     }//GEN-LAST:event_btnAddActionPerformed
 
     private String gioiTinh;
@@ -425,10 +439,113 @@ public class Employee extends javax.swing.JFrame {
         gioiTinh="Nam";
     }//GEN-LAST:event_rdbNamActionPerformed
 
-    private void rdnNuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdnNuActionPerformed
+    private void rdbNuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbNuActionPerformed
         gioiTinh="Nu";
-    }//GEN-LAST:event_rdnNuActionPerformed
+    }//GEN-LAST:event_rdbNuActionPerformed
 
+    Calendar cal=Calendar.getInstance();
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        setID();
+        txtName.setText("");
+        rdbNam.setSelected(true);
+        spnDOB.setValue(cal.getTime());
+        txtAddress.setText("");
+        txtPhoneNumber.setText("");
+        txtEmail.setText("");
+        cmbWork.setSelectedIndex(0);
+        spnDateWorking.setValue(cal.getTime());
+        txtAllowance.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
+        int selectedIndex=tblEmployee.getSelectedRow();
+        txtID.setText(tblEmployee.getValueAt(selectedIndex, 0)+"");
+        txtName.setText(tblEmployee.getValueAt(selectedIndex, 1)+"");
+        
+        if(tblEmployee.getValueAt(selectedIndex, 2).equals("Nam"))
+            rdbNam.setSelected(true);
+        else rdbNu.setSelected(true);
+        
+
+//        spnDOB.setValue(tblEmployee.getValueAt(selectedIndex, 3)+"");
+//        System.out.println(tblEmployee.getValueAt(selectedIndex, 3));
+//        System.out.println(cal.getTime());
+        //spnDOB.setValue(cal.getTime());
+        
+        txtAddress.setText(tblEmployee.getValueAt(selectedIndex, 4)+"");
+        txtPhoneNumber.setText(tblEmployee.getValueAt(selectedIndex, 5)+"");
+        txtEmail.setText(tblEmployee.getValueAt(selectedIndex, 6)+"");
+        cmbWork.setSelectedItem(tblEmployee.getValueAt(selectedIndex, 7)+"");
+        
+        txtAllowance.setText(tblEmployee.getValueAt(selectedIndex, 9)+"");
+    }//GEN-LAST:event_tblEmployeeMouseClicked
+
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        String id=txtID.getText();
+        String name=txtName.getText();
+        int confirm=JOptionPane.showConfirmDialog(rootPane, "Ban co chac muon xoa "+name+" khoi danh sach khong?","",JOptionPane.YES_NO_OPTION);
+        if(confirm== JOptionPane.YES_OPTION){
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
+                String query="DELETE Employee WHERE ID_Employee=? AND Name_Employee=?;";
+                Connection con=DriverManager.getConnection(dbURL);
+                PreparedStatement ps=con.prepareStatement(query);
+                ps.setString(1, id);
+                ps.setString(2, name);
+
+                ps.executeUpdate();
+            }catch(Exception ex){
+                System.out.println(ex);
+            }
+            btnClearActionPerformed(evt);
+            loadInfoEmployee();
+        }
+    }//GEN-LAST:event_btnDelActionPerformed
+
+    private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
+        String id=txtID.getText();
+        String name=txtName.getText();
+        String sex=gioiTinh;
+        String dob=new SimpleDateFormat("yyyy-MM-dd").format(spnDOB.getValue());
+        String address=txtAddress.getText();
+        String phoneNumber=txtPhoneNumber.getText();
+        String email=txtEmail.getText();
+        String idWork=getIDWork();
+        String startWorkingDate=new SimpleDateFormat("yyyy-MM-dd").format(spnDateWorking.getValue());
+        int allowance=Integer.valueOf(txtAllowance.getText());
+        
+        int confirm=JOptionPane.showConfirmDialog(rootPane, "Ban co chac muon chinh sua thong tin khong?","",JOptionPane.YES_NO_OPTION);
+        if(confirm== JOptionPane.YES_OPTION){
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
+                String query="UPDATE Employee SET Name_Employee=?, Sex=?,DOB=?,Emp_Address=?,Phone_Number=?,Email=?,ID_Work=?,Start_Working_Day=?, Allowance=? WHERE ID_Employee=?; ";
+                Connection con=DriverManager.getConnection(dbURL);
+                PreparedStatement ps=con.prepareStatement(query);
+                
+                ps.setString(1, name);
+                ps.setString(2, sex);
+                ps.setString(3, dob);
+                ps.setString(4, address);
+                ps.setString(5, phoneNumber);
+                ps.setString(6, email);
+                ps.setString(7, idWork);
+                ps.setString(8, startWorkingDate);
+                ps.setInt(9, allowance);
+                ps.setString(10, id);
+
+                ps.executeUpdate();
+            }catch(Exception ex){
+                System.out.println(ex);
+            }
+            btnClearActionPerformed(evt);
+            loadInfoEmployee();
+        } 
+    }//GEN-LAST:event_btnModifyActionPerformed
+
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -485,7 +602,7 @@ public class Employee extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton rdbNam;
-    private javax.swing.JRadioButton rdnNu;
+    private javax.swing.JRadioButton rdbNu;
     private javax.swing.JSpinner spnDOB;
     private javax.swing.JSpinner spnDateWorking;
     private javax.swing.JTable tblEmployee;
