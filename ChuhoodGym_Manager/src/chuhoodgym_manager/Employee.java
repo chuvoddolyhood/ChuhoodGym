@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -104,9 +105,19 @@ public class Employee extends javax.swing.JFrame {
 
         buttonGroup1.add(rdbNam);
         rdbNam.setText("Nam");
+        rdbNam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbNamActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rdnNu);
         rdnNu.setText("Nu");
+        rdnNu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdnNuActionPerformed(evt);
+            }
+        });
 
         spnDOB.setModel(new javax.swing.SpinnerDateModel());
         spnDOB.setEditor(new javax.swing.JSpinner.DateEditor(spnDOB, "dd/MM/YYYY"));
@@ -341,37 +352,82 @@ public class Employee extends javax.swing.JFrame {
         return check;
     }
     
+    //Get ID Work from Title Work
+    private String getIDWork(){
+        String id=null;
+        try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
+            String query="SELECT ID_Work FROM Work WHERE Title_Work=?;";
+            Connection connector=DriverManager.getConnection(dbURL);
+            PreparedStatement ps=connector.prepareStatement(query);
+            ps.setString(1, cmbWork.getItemAt(cmbWork.getSelectedIndex()));
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                id=rs.getString("ID_Work");
+            }
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+        
+        return id; 
+    }
+    
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if(confirmInfoEmployee()==true){
             JOptionPane.showMessageDialog(rootPane, "OK");
             
+            String query="INSERT INTO Employee VALUES(?,?,?,?,?,?,?,?,?,?);";
+            String id=txtID.getText();
+            String name=txtName.getText();
+            String sex=gioiTinh;
+            String dob=new SimpleDateFormat("yyyy-MM-dd").format(spnDOB.getValue());
+            String address=txtAddress.getText();
+            String phoneNumber=txtPhoneNumber.getText();
+            String email=txtEmail.getText();
+            String idWork=getIDWork();
+            String startWorkingDate=new SimpleDateFormat("yyyy-MM-dd").format(spnDateWorking.getValue());
+            int allowance=Integer.valueOf(txtAllowance.getText());
+            
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
+                Connection con=DriverManager.getConnection(dbURL);
+                PreparedStatement ps=con.prepareStatement(query);
+                ps.setString(1, id);
+                ps.setString(2, name);
+                ps.setString(3, sex);
+                ps.setString(4, dob);
+                ps.setString(5, address);
+                ps.setString(6, phoneNumber);
+                ps.setString(7, email);
+                ps.setString(8, idWork);
+                ps.setString(9, startWorkingDate);
+                ps.setInt(10, allowance);
+                
+                ps.executeUpdate();
+                
+                
+            }catch(Exception ex){
+                System.out.println(ex);
+            }
+
+              
             
             
         }
-//                try {
-//
-//            btnSave.setEnabled(true);
-//            
-//            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//            String strDatabase="jdbc:sqlserver://MSI\\SQLEXPRESS:1433;databaseName=DVDLibrary;user=test;password=1234567890";
-//            Connection con= DriverManager.getConnection(strDatabase);
-//            if(con==null || con.isClosed()){
-//                JOptionPane.showConfirmDialog(this, "Connection Closed", "Dialog", JOptionPane.INFORMATION_MESSAGE);
-//            }
-//            Statement s = con.createStatement();
-//            ResultSet rs = s.executeQuery("select * from DVD");
-//            DefaultTableModel m=new DefaultTableModel(new Object[]{"DVDCodeNo","DVDTitle", "DVDLang", "Subtitle", "Price"}, 0);
-//               tblDVD.setModel(m);
-//            while (rs.next()) {
-//                ((DefaultTableModel)tblDVD.getModel()).addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5)}); 
-//            }
-//            
-//            
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }         
-        //setID(); 
+      
+
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private String gioiTinh;
+    private void rdbNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbNamActionPerformed
+        gioiTinh="Nam";
+    }//GEN-LAST:event_rdbNamActionPerformed
+
+    private void rdnNuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdnNuActionPerformed
+        gioiTinh="Nu";
+    }//GEN-LAST:event_rdnNuActionPerformed
 
     /**
      * @param args the command line arguments

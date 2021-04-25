@@ -247,6 +247,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Nam"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdbNamActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rdnNu">
           <Properties>
@@ -255,6 +258,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Nu"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdnNuActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="spnDOB">
           <Properties>
