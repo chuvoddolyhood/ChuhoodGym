@@ -150,6 +150,19 @@ FROM Employee E JOIN Account A ON E.ID_Employee=A.ID_Employee
 				JOIN Work W ON E.ID_Work=W.ID_Work
 WHERE A.Username='nghia' AND A.Password='nghia123';
 
+--Dem so luong nhan vien
+SELECT COUNT(*) AS SUM_Emp FROM Employee;
+
+--Dem so luong nhan vien theo loai cong viec
+SELECT COUNT(*) AS SUM_Emp FROM Employee E JOIN Work W ON E.ID_Work=W.ID_Work WHERE W.Title_Work='Bao ve';
+
+--Show thong tin nhan vien theo cong viec
+SELECT E.ID_Employee,E.Name_Employee,E.Sex,E.DOB,E.Emp_Address,E.Phone_Number,E.Email,W.Title_Work,E.Start_Working_Day,E.Allowance 
+FROM Employee E JOIN Work W ON E.ID_Work=W.ID_Work
+WHERE W.Title_Work='Quan ly';
+
+SELECT * FROM Employee WHERE ID_Employee='E001';
+
 --Nhap username -> pass
 SELECT Password FROM Account WHERE Username='nghia';
 

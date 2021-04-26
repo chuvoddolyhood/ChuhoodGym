@@ -34,6 +34,9 @@ public class Employee extends javax.swing.JFrame {
         //Load du lieu len bang
         loadInfoEmployee();
         
+        //set Total Employee
+        setTotal();
+        
         //Set auto ID
         setID();
     }
@@ -77,6 +80,12 @@ public class Employee extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
+        txtFind = new javax.swing.JTextField();
+        btnFind = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        cmbArrangement = new javax.swing.JComboBox<>();
+        txtTotal = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,7 +203,7 @@ public class Employee extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtID)
@@ -215,26 +224,26 @@ public class Employee extends javax.swing.JFrame {
                     .addComponent(cmbWork))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(spnDOB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(spnDateWorking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(122, 122, 122))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(122, 122, 122))))))
         );
 
         btnAdd.setText("Add");
@@ -265,6 +274,26 @@ public class Employee extends javax.swing.JFrame {
             }
         });
 
+        btnFind.setText("Find");
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Sap xep");
+
+        cmbArrangement.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quan ly", "PT", "Tap vu", "Bao ve" }));
+        cmbArrangement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbArrangementActionPerformed(evt);
+            }
+        });
+
+        txtTotal.setFocusable(false);
+
+        jLabel12.setText("Total");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -274,13 +303,30 @@ public class Employee extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1869, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(130, 130, 130)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAdd)
-                            .addComponent(btnDel)
                             .addComponent(btnClear)
-                            .addComponent(btnModify))))
+                            .addComponent(btnModify)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnAdd)
+                                    .addComponent(btnDel))
+                                .addGap(193, 193, 193)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cmbArrangement, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnFind)))))))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -290,19 +336,29 @@ public class Employee extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(btnAdd)
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(cmbArrangement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAdd)
+                            .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFind))
                         .addGap(26, 26, 26)
                         .addComponent(btnDel)
                         .addGap(27, 27, 27)
                         .addComponent(btnClear)
                         .addGap(18, 18, 18)
-                        .addComponent(btnModify)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btnModify)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -336,6 +392,43 @@ public class Employee extends javax.swing.JFrame {
         }catch(Exception ex){
             System.out.println(ex);
         }
+    }
+    
+    private void setTotal(){
+        int sum=0;
+        try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
+            String query="SELECT COUNT(*) AS SUM_Emp FROM Employee;";
+            Connection connector=DriverManager.getConnection(dbURL);
+            PreparedStatement ps=connector.prepareStatement(query);
+            ResultSet sum_Emp=ps.executeQuery();
+            while(sum_Emp.next()){
+                sum=sum_Emp.getInt("SUM_Emp");
+            }
+        }catch(Exception ex){
+            sum=0;
+        }
+        txtTotal.setText(String.valueOf(sum));
+    }
+    
+        private void setTotalFollowTypeWork(String typeWork){
+        int sum=0;
+        try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
+            String query="SELECT COUNT(*) AS SUM_Emp FROM Employee E JOIN Work W ON E.ID_Work=W.ID_Work WHERE W.Title_Work=?;";
+            Connection connector=DriverManager.getConnection(dbURL);
+            PreparedStatement ps=connector.prepareStatement(query);
+            ps.setString(1, typeWork);
+            ResultSet sum_Emp=ps.executeQuery();
+            while(sum_Emp.next()){
+                sum=sum_Emp.getInt("SUM_Emp");
+            }
+        }catch(Exception ex){
+            sum=0;
+        }
+        txtTotal.setText(String.valueOf(sum));
     }
     
     private void setID(){
@@ -544,6 +637,53 @@ public class Employee extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_btnModifyActionPerformed
 
+    private void cmbArrangementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbArrangementActionPerformed
+        String arrangementWork=cmbArrangement.getItemAt(cmbArrangement.getSelectedIndex());
+        try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
+            String query="SELECT E.ID_Employee,E.Name_Employee,E.Sex,E.DOB,E.Emp_Address,E.Phone_Number,E.Email,W.Title_Work,E.Start_Working_Day,E.Allowance FROM Employee E JOIN Work W ON E.ID_Work=W.ID_Work WHERE W.Title_Work=?;";
+            Connection con=DriverManager.getConnection(dbURL);
+            PreparedStatement ps=con.prepareStatement(query);
+            ps.setString(1, arrangementWork);
+            
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel m=new DefaultTableModel(new Object[]{"ID","Name", "Sex", "DOB", "Address","Phone Number","Email","Work","Start Working Date","Allowance"}, 0);
+               tblEmployee.setModel(m);
+            while (rs.next()) {
+                ((DefaultTableModel)tblEmployee.getModel()).addRow(new Object[]{
+                    rs.getString(1), 
+                    rs.getString(2), 
+                    rs.getString(3), 
+                    rs.getDate(4), 
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7),
+                    rs.getString(8),
+                    rs.getDate(9),
+                    rs.getInt(10),
+                }); 
+            }
+            
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+        
+        //Dem so luong nhan vien
+        setTotalFollowTypeWork(arrangementWork);
+ 
+    }//GEN-LAST:event_cmbArrangementActionPerformed
+
+    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
+//        String idFinder=txtFind.getText();
+//        int numberID=Integer.valueOf(idFinder.substring(1, 4)); //number
+//        int indexCurrentRow=numberID-1;
+//        tblEmployee.setValueAt(cal, ERROR, NORMAL);
+                
+        //tblEmployee.getSelectedRow();
+        
+    }//GEN-LAST:event_btnFindActionPerformed
+
     
     
     /**
@@ -585,17 +725,21 @@ public class Employee extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnFind;
     private javax.swing.JButton btnModify;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cmbArrangement;
     private javax.swing.JComboBox<String> cmbWork;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
@@ -609,8 +753,10 @@ public class Employee extends javax.swing.JFrame {
     private javax.swing.JTextArea txtAddress;
     private javax.swing.JTextField txtAllowance;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFind;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhoneNumber;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }
