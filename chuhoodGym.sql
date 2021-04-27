@@ -36,23 +36,27 @@ CREATE TABLE Customer(
 	Work VARCHAR(50)
 );
 
-CREATE TABLE Gym_service_packages(
-	ID_Pack VARCHAR(10) NOT NULL PRIMARY KEY,
-	Title_Pack VARCHAR(50) NOT NULL,
+CREATE TABLE Gym_service_package(
+	ID_Package VARCHAR(10) NOT NULL PRIMARY KEY,
+	Title_Package VARCHAR(50) NOT NULL,
 	Cost INT,
-	Time_Pack VARCHAR(10)
+	Time_Package VARCHAR(10)
 );
 
 CREATE TABLE Gym_Contract(
 	ID_Contract VARCHAR(10) NOT NULL PRIMARY KEY,
 	Date_Enroll Date,
 	Date_End Date,
+	Cost INT,
+	status VARCHAR(20),
 	ID_Customer VARCHAR(10) NOT NULL REFERENCES Customer(ID_Customer),
-	ID_Pack VARCHAR(10) NOT NULL REFERENCES Gym_service_packages(ID_Pack)
+	ID_Package VARCHAR(10) NOT NULL REFERENCES Gym_service_package(ID_Package)
 );
+
 
 CREATE TABLE Weekdays(
 	ID_Weekdays VARCHAR(10) NOT NULL,
+	Date_Workout DATE,
 	ID_Customer VARCHAR(10) NOT NULL REFERENCES Customer(ID_Customer),
 	ID_Contract VARCHAR(10) NOT NULL REFERENCES Gym_Contract(ID_Contract)
 );
@@ -90,38 +94,42 @@ INSERT INTO Customer VALUES('C003','Nguyen Dinh Quy','Nam','Jul 17, 2000','08324
 INSERT INTO Customer VALUES('C004','Le Doan Khanh','Nam','Apr 30, 2000','0379026256', 'Nhan vien van phong');
 
 ---------------------------------------Gym Service packages-----------------------------------------
-SELECT * FROM Gym_service_packages;
+SELECT * FROM Gym_service_package;
 
-INSERT INTO Gym_service_packages VALUES('GSP1','Goi ngay',30000,'1 ngay');
-INSERT INTO Gym_service_packages VALUES('GSP2','Goi 1 thang',270000,'1 thang');
-INSERT INTO Gym_service_packages VALUES('GSP3','Goi 2 thang',400000,'2 thang');
-INSERT INTO Gym_service_packages VALUES('GSP4','Goi 6 thang',1000000,'6 thang');
-INSERT INTO Gym_service_packages VALUES('GSP5','Goi 12 thang',1800000,'12 thang');
-INSERT INTO Gym_service_packages VALUES('GSP6','Goi PT',5000000,'1 thang');
+INSERT INTO Gym_service_package VALUES('GSP1','Goi ngay',30000,'1 ngay');
+INSERT INTO Gym_service_package VALUES('GSP2','Goi 1 thang',270000,'1 thang');
+INSERT INTO Gym_service_package VALUES('GSP3','Goi 2 thang',400000,'2 thang');
+INSERT INTO Gym_service_package VALUES('GSP4','Goi 6 thang',1000000,'6 thang');
+INSERT INTO Gym_service_package VALUES('GSP5','Goi 12 thang',1800000,'12 thang');
+INSERT INTO Gym_service_package VALUES('GSP6','Goi PT',5000000,'1 thang');
 
 ---------------------------------------Gym Contract-----------------------------------------
+DELETE Gym_Contract
+
 SELECT * FROM Gym_Contract;
-INSERT INTO Gym_Contract VALUES('HD001','2021-04-12','2021-05-12','KH001','GSP2');
-INSERT INTO Gym_Contract VALUES('HD002','2021-04-10','2021-06-12','KH002','GSP3');
-INSERT INTO Gym_Contract VALUES('HD003','2021-04-20','2021-04-20','KH003','GSP1');
+INSERT INTO Gym_Contract VALUES('HD001','2021-04-12','2021-05-12','C001','GSP2',(270000-(270000*10/100)),'Live');
+INSERT INTO Gym_Contract VALUES('HD002','2021-04-10','2021-06-12','C002','GSP3',400000-(400000*10/100),'Live');
+INSERT INTO Gym_Contract VALUES('HD003','2021-04-20','2021-04-20','C003','GSP1',30000,'Expire');
 
 
 ------------------------------------WEEKDAYS-----------------------------
 SELECT * FROM Weekdays;
+DROP TABLE Weekdays;
 
-INSERT INTO Weekdays VALUES('Thu 2','KH002','HD002');
-INSERT INTO Weekdays VALUES('Thu 2','KH001','HD001');
-INSERT INTO Weekdays VALUES('Thu 3','KH003','HD003');
-INSERT INTO Weekdays VALUES('Thu 4','KH001','HD001');
-INSERT INTO Weekdays VALUES('Thu 4','KH001','HD001');
-INSERT INTO Weekdays VALUES('Thu 5','KH001','HD001');
-INSERT INTO Weekdays VALUES('Thu 5','KH002','HD002');
-INSERT INTO Weekdays VALUES('Thu 5','KH003','HD003');
-INSERT INTO Weekdays VALUES('Thu 6','KH002','HD002');
-INSERT INTO Weekdays VALUES('Thu 6','KH001','HD001');
-INSERT INTO Weekdays VALUES('Thu 7','KH003','HD003');
-INSERT INTO Weekdays VALUES('Thu 7','KH002','HD002');
-
+INSERT INTO Weekdays VALUES('Mon','Apr 26 2021','C002','HD002');
+INSERT INTO Weekdays VALUES('Mon','Apr 26 2021','C001','HD001');
+INSERT INTO Weekdays VALUES('Tue','Apr 27 2021','C003','HD003');
+INSERT INTO Weekdays VALUES('Wed','Apr 27 2021','C001','HD001');
+INSERT INTO Weekdays VALUES('Wed','Apr 27 2021','C001','HD001');
+INSERT INTO Weekdays VALUES('Thu','Apr 28 2021','C001','HD001');
+INSERT INTO Weekdays VALUES('Thu','Apr 28 2021','C002','HD002');
+INSERT INTO Weekdays VALUES('Thu','Apr 28 2021','C003','HD003');
+INSERT INTO Weekdays VALUES('Fri','Apr 29 2021','C002','HD002');
+INSERT INTO Weekdays VALUES('Fri','Apr 29 2021','C001','HD001');
+INSERT INTO Weekdays VALUES('Sat','Apr 30 2021','C003','HD003');
+INSERT INTO Weekdays VALUES('Sun','Jul 1 2021','C002','HD002');
+INSERT INTO Weekdays VALUES('Sun','2021 Jul 1','C002','HD002');
+INSERT INTO Weekdays VALUES('Sun','2021 -05- 01','C002','HD002');
 
 --/////////////////////////////////////////////////////////////////////////
 
@@ -194,5 +202,24 @@ WHERE ID_Weekdays='Thu 2';
 --In thong tin khach dang ky goi dich vu
 SELECT C.Name_Customer
 FROM Gym_Contract Co JOIN Customer C ON Co.ID_Customer=C.ID_Customer
-					JOIN Gym_service_packages P ON Co.ID_Pack=P.ID_Pack
-WHERE P.Title_Pack='Goi 2 thang';
+					JOIN Gym_service_package P ON Co.ID_Package=P.ID_Package
+WHERE P.Title_Package='Goi 2 thang';
+
+
+--Kiem tra xem khach hang nay co nhung hop dong nao
+SELECT Co.ID_Contract, C.Name_Customer,P.ID_Package, P.Title_Package,Co.Date_Enroll,Co.Date_End,Co.status
+FROM Gym_Contract Co JOIN Customer C ON Co.ID_Customer=C.ID_Customer
+						JOIN Gym_service_package P ON Co.ID_Package=P.ID_Package
+WHERE ID_Contract=(SELECT MAX(ID_Contract) FROM Gym_Contract WHERE ID_Customer='C001');
+
+
+--Get the last contract's status of customer
+
+SELECT Co.status
+FROM Gym_Contract Co JOIN Customer C ON Co.ID_Customer=C.ID_Customer
+						JOIN Gym_service_package P ON Co.ID_Package=P.ID_Package
+WHERE ID_Contract=(SELECT MAX(ID_Contract) FROM Gym_Contract WHERE ID_Customer='C001'); 
+
+
+SELECT * FROM Weekdays;
+

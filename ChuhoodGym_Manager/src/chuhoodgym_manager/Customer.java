@@ -368,7 +368,7 @@ public class Customer extends javax.swing.JFrame {
         else txtID.setText(ancestors + String.valueOf(numberID+1));
     }
     
-    private boolean confirmInfoEmployee(){
+    private boolean confirmInfoCustomer(){
         boolean check=true;
         if(txtName.getText().equals("")==true || txtPhoneNumber.getText().equals("")==true){
             JOptionPane.showMessageDialog(rootPane, "Phai nhap day du cac thong tin co ban nhu: Ten, So dien thoai");
@@ -401,7 +401,7 @@ public class Customer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        if(confirmInfoEmployee()==true){
+        if(confirmInfoCustomer()==true){
             String query="INSERT INTO Customer VALUES(?,?,?,?,?,?);";
             String id=txtID.getText();
             String name=txtName.getText();
