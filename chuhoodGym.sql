@@ -223,3 +223,15 @@ WHERE ID_Contract=(SELECT MAX(ID_Contract) FROM Gym_Contract WHERE ID_Customer='
 
 SELECT * FROM Weekdays;
 
+
+SELECT * FROM Customer
+
+SELECT * FROM Customer WHERE ID_Customer='C001';
+
+SELECT * FROM Gym_Contract;
+
+SELECT MAX(ID_Contract) AS MAX_ID FROM Gym_Contract;
+
+SELECT * FROM Gym_service_package;
+
+SELECT ID_Package FROM Gym_service_package WHERE Title_Package='Goi 6 thang';
