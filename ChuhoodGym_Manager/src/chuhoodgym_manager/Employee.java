@@ -34,9 +34,6 @@ public class Employee extends javax.swing.JFrame {
         //Load du lieu len bang
         loadInfoEmployee();
         
-        //set Total Employee
-        setTotal();
-        
         //Set auto ID
         setID();
     }
@@ -91,13 +88,13 @@ public class Employee extends javax.swing.JFrame {
 
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         tblEmployee.setFocusable(false);
@@ -274,6 +271,12 @@ public class Employee extends javax.swing.JFrame {
             }
         });
 
+        txtFind.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtFindMouseClicked(evt);
+            }
+        });
+
         btnFind.setText("Find");
         btnFind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -283,7 +286,7 @@ public class Employee extends javax.swing.JFrame {
 
         jLabel7.setText("Sap xep");
 
-        cmbArrangement.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quan ly", "PT", "Tap vu", "Bao ve" }));
+        cmbArrangement.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*", "Quan ly", "PT", "Tap vu", "Bao ve" }));
         cmbArrangement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbArrangementActionPerformed(evt);
@@ -392,6 +395,9 @@ public class Employee extends javax.swing.JFrame {
         }catch(Exception ex){
             System.out.println(ex);
         }
+        
+        //set Total Employee
+        setTotal();
     }
     
     private void setTotal(){
@@ -639,50 +645,67 @@ public class Employee extends javax.swing.JFrame {
 
     private void cmbArrangementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbArrangementActionPerformed
         String arrangementWork=cmbArrangement.getItemAt(cmbArrangement.getSelectedIndex());
-        try{
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
-            String query="SELECT E.ID_Employee,E.Name_Employee,E.Sex,E.DOB,E.Emp_Address,E.Phone_Number,E.Email,W.Title_Work,E.Start_Working_Day,E.Allowance FROM Employee E JOIN Work W ON E.ID_Work=W.ID_Work WHERE W.Title_Work=?;";
-            Connection con=DriverManager.getConnection(dbURL);
-            PreparedStatement ps=con.prepareStatement(query);
-            ps.setString(1, arrangementWork);
-            
-            ResultSet rs = ps.executeQuery();
-            DefaultTableModel m=new DefaultTableModel(new Object[]{"ID","Name", "Sex", "DOB", "Address","Phone Number","Email","Work","Start Working Date","Allowance"}, 0);
-               tblEmployee.setModel(m);
-            while (rs.next()) {
-                ((DefaultTableModel)tblEmployee.getModel()).addRow(new Object[]{
-                    rs.getString(1), 
-                    rs.getString(2), 
-                    rs.getString(3), 
-                    rs.getDate(4), 
-                    rs.getString(5),
-                    rs.getString(6),
-                    rs.getString(7),
-                    rs.getString(8),
-                    rs.getDate(9),
-                    rs.getInt(10),
-                }); 
-            }
-            
-        }catch(Exception ex){
-            System.out.println(ex);
+        if(arrangementWork.equals("*")==true){
+            loadInfoEmployee();
+            setTotal();
         }
-        
-        //Dem so luong nhan vien
-        setTotalFollowTypeWork(arrangementWork);
- 
+        else{
+            try{
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
+                String query="SELECT E.ID_Employee,E.Name_Employee,E.Sex,E.DOB,E.Emp_Address,E.Phone_Number,E.Email,W.Title_Work,E.Start_Working_Day,E.Allowance FROM Employee E JOIN Work W ON E.ID_Work=W.ID_Work WHERE W.Title_Work=?;";
+                Connection con=DriverManager.getConnection(dbURL);
+                PreparedStatement ps=con.prepareStatement(query);
+                ps.setString(1, arrangementWork);
+
+                ResultSet rs = ps.executeQuery();
+                DefaultTableModel m=new DefaultTableModel(new Object[]{"ID","Name", "Sex", "DOB", "Address","Phone Number","Email","Work","Start Working Date","Allowance"}, 0);
+                   tblEmployee.setModel(m);
+                while (rs.next()) {
+                    ((DefaultTableModel)tblEmployee.getModel()).addRow(new Object[]{
+                        rs.getString(1), 
+                        rs.getString(2), 
+                        rs.getString(3), 
+                        rs.getDate(4), 
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getDate(9),
+                        rs.getInt(10),
+                    }); 
+                }
+
+            }catch(Exception ex){
+                System.out.println(ex);
+            }
+            //Dem so luong nhan vien
+            setTotalFollowTypeWork(arrangementWork);
+        }
     }//GEN-LAST:event_cmbArrangementActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-//        String idFinder=txtFind.getText();
-//        int numberID=Integer.valueOf(idFinder.substring(1, 4)); //number
-//        int indexCurrentRow=numberID-1;
-//        tblEmployee.setValueAt(cal, ERROR, NORMAL);
+        String idFinder=txtFind.getText();
+        if(idFinder.equals("")==false){
+            try{
+                int numberID=Integer.valueOf(idFinder.substring(1, 4)); //number
+                int indexCurrentRow=numberID-1;
+                tblEmployee.getSelectionModel().addSelectionInterval(indexCurrentRow,indexCurrentRow);
+                //tblEmployee.selectAll(); Lay toan bo
+               
                 
-        //tblEmployee.getSelectedRow();
-        
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(rootPane, "Ma nhan vien co dinh dang Exxx");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Ban chua nhap thong tin tim kiem");
+        } 
     }//GEN-LAST:event_btnFindActionPerformed
+
+    private void txtFindMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFindMouseClicked
+        loadInfoEmployee();
+    }//GEN-LAST:event_txtFindMouseClicked
 
     
     

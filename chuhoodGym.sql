@@ -33,6 +33,7 @@ CREATE TABLE Customer(
 	Sex VARCHAR(10),
 	DOB DATE,
 	PhoneNumber_Customer VARCHAR(15) NOT NULL,
+	Work VARCHAR(50)
 );
 
 CREATE TABLE Gym_service_packages(
@@ -82,10 +83,11 @@ INSERT INTO Account VALUES('E004','khoi','khoi123');
 
 ---------------------------------------Customer-----------------------------------------
 SELECT * FROM Customer
-
-INSERT INTO Customer VALUES('KH001','Tran Nhan Nghia','Male','Jan 24, 2000','0939635755');
-INSERT INTO Customer VALUES('KH002','Nguyen Le Thanh Cao','Male','May 5, 2000','0523294259');
-INSERT INTO Customer VALUES('KH003','To Huynh Minh Khoi','Male','Jul 17, 2000','0945595503');
+DELETE FROM Customer
+INSERT INTO Customer VALUES('C001','Lu Thi Thanh Mi','Nu','Jun 10, 2000','0914635308','Sinh vien');
+INSERT INTO Customer VALUES('C002','Nguyen Van Ha','Nam','Nov 11, 2000','0838720508', 'Hoc sinh');
+INSERT INTO Customer VALUES('C003','Nguyen Dinh Quy','Nam','Jul 17, 2000','0832483050', 'Cong an');
+INSERT INTO Customer VALUES('C004','Le Doan Khanh','Nam','Apr 30, 2000','0379026256', 'Nhan vien van phong');
 
 ---------------------------------------Gym Service packages-----------------------------------------
 SELECT * FROM Gym_service_packages;
@@ -167,6 +169,21 @@ SELECT * FROM Employee WHERE ID_Employee='E001';
 SELECT Password FROM Account WHERE Username='nghia';
 
 SELECT * FROM Account
+
+--In thong tin khach hang
+SELECT * FROM Customer
+
+SELECT MAX(ID_Customer) AS MAX_ID FROM Customer;
+
+--Xoa khach hang
+DELETE Customer WHERE ID_Customer='C005' AND Name_Customer='gfds';
+
+--Chinh sua thong tin khach hang
+UPDATE Customer SET Name_Customer='Truong tieu phung', Sex='Nu',DOB='Dec 2 2000',PhoneNumber_Customer='3425432', Work='Ngan hang' WHERE ID_Customer='C007'; 
+
+--Tim kiem thong tin khach hang qua so dien thoai
+SELECT ID_Customer FROM Customer WHERE PhoneNumber_Customer='0379026256';
+
 
 --In thong tin khach hang tap vao thu 2
 SELECT C.Name_Customer

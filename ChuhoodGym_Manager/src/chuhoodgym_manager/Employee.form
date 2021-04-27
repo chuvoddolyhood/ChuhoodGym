@@ -121,12 +121,7 @@
         <Component class="javax.swing.JTable" name="tblEmployee">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                <Column editable="true" title="Title 4" type="java.lang.Object"/>
-              </Table>
+              <Table columnCount="0" rowCount="4"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
@@ -419,6 +414,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFind">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtFindMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnFind">
       <Properties>
@@ -436,11 +434,12 @@
     <Component class="javax.swing.JComboBox" name="cmbArrangement">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Quan ly"/>
-            <StringItem index="1" value="PT"/>
-            <StringItem index="2" value="Tap vu"/>
-            <StringItem index="3" value="Bao ve"/>
+          <StringArray count="5">
+            <StringItem index="0" value="*"/>
+            <StringItem index="1" value="Quan ly"/>
+            <StringItem index="2" value="PT"/>
+            <StringItem index="3" value="Tap vu"/>
+            <StringItem index="4" value="Bao ve"/>
           </StringArray>
         </Property>
       </Properties>
