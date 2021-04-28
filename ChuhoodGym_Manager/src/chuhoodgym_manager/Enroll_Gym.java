@@ -705,9 +705,10 @@ public class Enroll_Gym extends javax.swing.JFrame {
 
     //Tao gia tri ID cua hop dong
     private String setIDContract(){
-        String id=null;
+        String id=null; //id max lay tu CSDL
         String ancestors; //Tien to HD
         int numberID; //so duoi 00x || 0xx
+        String idNext; //id tiep theo sau khi xu ly
         
         try{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -715,9 +716,9 @@ public class Enroll_Gym extends javax.swing.JFrame {
             String query="SELECT MAX(ID_Contract) AS MAX_ID FROM Gym_Contract;";
             Connection connector=DriverManager.getConnection(dbURL);
             PreparedStatement ps=connector.prepareStatement(query);
-            ResultSet rs_STT=ps.executeQuery();
-            while(rs_STT.next()){
-                id=rs_STT.getString("MAX_ID");
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                id=rs.getString("MAX_ID");
             }
         }catch(Exception ex){
             numberID=0;
@@ -725,17 +726,17 @@ public class Enroll_Gym extends javax.swing.JFrame {
         
         ancestors=id.substring(0, 2); //HD
         numberID=Integer.valueOf(id.substring(2, 5)); //number
+
+        if(numberID<9) idNext= ancestors +"00"+ String.valueOf(numberID+1);
+        else if(numberID<99) idNext=ancestors +"0"+ String.valueOf(numberID+1);
+        else idNext=ancestors + String.valueOf(numberID+1);
         
-        if(numberID<9) txtID.setText(ancestors +"00"+ String.valueOf(numberID+1));
-        else if(numberID<99) txtID.setText(ancestors +"0"+ String.valueOf(numberID+1));
-        else txtID.setText(ancestors + String.valueOf(numberID+1));
-        
-        return id;
+        return idNext;
     }
     
-    //Lay thoi gian cua goi tap
-    private String getTimePackageService(){
-        String time=null;
+    //Lay ID package service gym tu title Package
+    private String getIDFromTimePackageService(){
+        String idPack=null;
         try{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
@@ -745,13 +746,96 @@ public class Enroll_Gym extends javax.swing.JFrame {
             ps.setString(1, cmbPackage.getItemAt(cmbPackage.getSelectedIndex()));
             ResultSet rs=ps.executeQuery();
             while(rs.next()){
-                time=rs.getString("Time_Package");
+                idPack=rs.getString("ID_Package");
             }
         }catch(Exception ex){
             System.out.println(ex);
         }
         //int time_number=Integer.valueOf(time.substring(0, 2));
-        return time;
+        return idPack;
+    }
+    
+    
+    
+    //CO BUG xu ly ngay ket thuc 
+    //nagy ket thuc= ngay bat dau + (luong ngay)
+    private String setDateEnd(){
+        String dateEnd=null;
+        String currentTime= new SimpleDateFormat("dd-MM-yyyy").format(cal.getTime());
+
+        if(getIDFromTimePackageService().equals("GSP1")==true){
+            dateEnd=currentTime;
+        }
+        else if(getIDFromTimePackageService().equals("GSP2")==true||getIDFromTimePackageService().equals("GSP6")==true){
+            int month=Integer.valueOf(currentTime.substring(3, 5))+1;
+            dateEnd=currentTime.substring(0, 3)+String.valueOf(month) +  currentTime.substring(5, 10);
+        }
+        else if(getIDFromTimePackageService().equals("GSP3")==true){
+            int month=Integer.valueOf(currentTime.substring(3, 5))+2;
+            dateEnd=currentTime.substring(0, 3)+String.valueOf(month) +  currentTime.substring(5, 10);
+        }
+        else if(getIDFromTimePackageService().equals("GSP4")==true){
+            int month=Integer.valueOf(currentTime.substring(3, 5))+6;
+            dateEnd=currentTime.substring(0, 3)+String.valueOf(month) +  currentTime.substring(5, 10);
+        }
+        else{
+            int year=Integer.valueOf(currentTime.substring(6, 10))+1;
+            dateEnd=currentTime.substring(0, 6) +String.valueOf(year);
+        }
+        return dateEnd;
+    }
+    
+    private int getCostFromTimePackageService(){
+        int money=0;
+        try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
+            String query="SELECT Cost FROM Gym_service_package WHERE Title_Package=?;";
+            Connection connector=DriverManager.getConnection(dbURL);
+            PreparedStatement ps=connector.prepareStatement(query);
+            ps.setString(1, cmbPackage.getItemAt(cmbPackage.getSelectedIndex()));
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                money=rs.getInt("Cost");
+            }
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+        return money;
+    }
+    
+    private String getTitleWorkFromCustomer(){
+        String work=null;
+        try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
+            String query="SELECT Work FROM Customer WHERE ID_Customer=?;";
+            Connection connector=DriverManager.getConnection(dbURL);
+            PreparedStatement ps=connector.prepareStatement(query);
+            ps.setString(1, txtFindIDCustomer.getText());
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                work=rs.getString("Work");
+            }
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+        return work;
+    }
+    
+    String Discount=null;
+    private double Discount(){
+        double discount=0;
+        if(getTitleWorkFromCustomer().equalsIgnoreCase("sinh vien")||getTitleWorkFromCustomer().equalsIgnoreCase("hoc sinh")){
+            Discount="20%";
+            discount=0.2;
+        }
+        return discount;
+    }
+    
+    private int GrandTotal(){
+        int grandTotal=(int) (getCostFromTimePackageService()-(getCostFromTimePackageService()*Discount()));
+        return grandTotal;
     }
     
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
@@ -760,26 +844,24 @@ public class Enroll_Gym extends javax.swing.JFrame {
         String name=tblCustomerRegister.getValueAt(selectedIndex, 1)+"";
         String titlePackage=cmbPackage.getItemAt(cmbPackage.getSelectedIndex());
         String dateEnroll = new SimpleDateFormat("dd-MM-yyyy").format(cal.getTime());
-        System.out.println(getTimePackageService());
-        //String dateEnd
+        String dateEnd=setDateEnd();
+        String Subtotal=String.valueOf(getCostFromTimePackageService());
+        //Discount
+        String grandTotal=String.valueOf(GrandTotal());
 
-
-        
         txtInvoice.setText("ID Contract:     "+idContract+"\n"+
                            "Name:   "+name+"\n"+
                            "Title Package:    "+titlePackage+"\n"+
-                           "Date Enroll:     "+dateEnroll+"\n"  
-//                           "Date End:     "+dateEnd+"\n"+  
-//                           "Sub Total:    "+Subtotal+"\n"+
-//                           "Discount:   "+discount+"\n"+
-//                           "Grand Total:   "+grandTotal+"\n"
+                           "Date Enroll:     "+dateEnroll+"\n"+  
+                           "Date End:     "+dateEnd+"\n"+  
+                           "Sub Total:    "+Subtotal+"\n"+
+                           "Discount:   "+Discount+"\n"+
+                           "Grand Total:   "+grandTotal+"\n"
         );
-                           
+        txtSumMoney.setText(grandTotal);
     }//GEN-LAST:event_btnConfirmActionPerformed
 
-    
- 
-    
+
     
     /**
      * @param args the command line arguments
