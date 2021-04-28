@@ -4,15 +4,18 @@
  * and open the template in the editor.
  */
 package chuhoodgym_manager;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -357,8 +360,18 @@ public class Enroll_Gym extends javax.swing.JFrame {
         jScrollPane2.setViewportView(txtInvoice);
 
         btnRegister.setText("Register");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Money");
 
@@ -759,28 +772,34 @@ public class Enroll_Gym extends javax.swing.JFrame {
     
     //CO BUG xu ly ngay ket thuc 
     //nagy ket thuc= ngay bat dau + (luong ngay)
-    private String setDateEnd(){
+    private String status;
+    private String setDateEnd(){ //PHAI DUNG DINH DANG yyyy/MM/dd voi CSDL
         String dateEnd=null;
-        String currentTime= new SimpleDateFormat("dd-MM-yyyy").format(cal.getTime());
+        String currentTime= new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
 
         if(getIDFromTimePackageService().equals("GSP1")==true){
             dateEnd=currentTime;
+            status="Expire";
         }
         else if(getIDFromTimePackageService().equals("GSP2")==true||getIDFromTimePackageService().equals("GSP6")==true){
-            int month=Integer.valueOf(currentTime.substring(3, 5))+1;
-            dateEnd=currentTime.substring(0, 3)+String.valueOf(month) +  currentTime.substring(5, 10);
+            int month=Integer.valueOf(currentTime.substring(5, 7))+1;
+            dateEnd=currentTime.substring(0, 5)+String.valueOf(month) +  currentTime.substring(7, 10);
+            status="Live";
         }
         else if(getIDFromTimePackageService().equals("GSP3")==true){
-            int month=Integer.valueOf(currentTime.substring(3, 5))+2;
-            dateEnd=currentTime.substring(0, 3)+String.valueOf(month) +  currentTime.substring(5, 10);
+            int month=Integer.valueOf(currentTime.substring(5, 7))+2;
+            dateEnd=currentTime.substring(0, 5)+String.valueOf(month) +  currentTime.substring(7, 10);
+            status="Live";
         }
         else if(getIDFromTimePackageService().equals("GSP4")==true){
-            int month=Integer.valueOf(currentTime.substring(3, 5))+6;
-            dateEnd=currentTime.substring(0, 3)+String.valueOf(month) +  currentTime.substring(5, 10);
+            int month=Integer.valueOf(currentTime.substring(5, 7))+6;
+            dateEnd=currentTime.substring(0, 5)+String.valueOf(month) +  currentTime.substring(7, 10);
+            status="Live";
         }
         else{
-            int year=Integer.valueOf(currentTime.substring(6, 10))+1;
-            dateEnd=currentTime.substring(0, 6) +String.valueOf(year);
+            int year=Integer.valueOf(currentTime.substring(0, 4))+1;
+            dateEnd=String.valueOf(year)+currentTime.substring(4, 10);
+            status="Live";
         }
         return dateEnd;
     }
@@ -823,7 +842,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
         return work;
     }
     
-    String Discount=null;
+    String Discount="Khong Co Dícount";
     private double Discount(){
         double discount=0;
         if(getTitleWorkFromCustomer().equalsIgnoreCase("sinh vien")||getTitleWorkFromCustomer().equalsIgnoreCase("hoc sinh")){
@@ -843,7 +862,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
         String idContract=setIDContract();
         String name=tblCustomerRegister.getValueAt(selectedIndex, 1)+"";
         String titlePackage=cmbPackage.getItemAt(cmbPackage.getSelectedIndex());
-        String dateEnroll = new SimpleDateFormat("dd-MM-yyyy").format(cal.getTime());
+        String dateEnroll = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
         String dateEnd=setDateEnd();
         String Subtotal=String.valueOf(getCostFromTimePackageService());
         //Discount
@@ -861,6 +880,43 @@ public class Enroll_Gym extends javax.swing.JFrame {
         txtSumMoney.setText(grandTotal);
     }//GEN-LAST:event_btnConfirmActionPerformed
 
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        String query="INSERT INTO Gym_Contract VALUES(?,?,?,?,?,?,?);";
+        String idContract=setIDContract();
+        String dateEnroll=new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+        String dateEnd = setDateEnd();
+        String idCustomer=txtFindIDCustomer.getText();
+        String idPackage=getIDFromTimePackageService();
+        int grandTotal=GrandTotal();
+        //status
+
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890";
+            Connection con=DriverManager.getConnection(dbURL);
+            PreparedStatement ps=con.prepareStatement(query);
+            ps.setString(1, idContract);
+            ps.setString(2, dateEnroll);
+            ps.setString(3, dateEnd);
+            ps.setString(4, idCustomer);
+            ps.setString(5, idPackage);
+            ps.setInt(6, grandTotal);
+            ps.setString(7, status);
+
+            ps.executeUpdate();
+        }catch(Exception ex){
+            System.out.println(ex);
+        }  
+    }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        btnClearActionPerformed(evt);
+        txtFindIDCustomer.setText("");
+        cmbPackage.setSelectedIndex(0);
+        txtInvoice.setText("");
+        txtSumMoney.setText("");
+        ((DefaultTableModel)tblCustomerRegister.getModel()).setRowCount(0);
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     
     /**
