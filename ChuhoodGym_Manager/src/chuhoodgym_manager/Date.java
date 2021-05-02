@@ -84,21 +84,21 @@ public class Date {
 	}
         
         
-        public static void main(String[] args) {
-		Scanner sc= new Scanner(System.in);
-		Date a= new Date();
-		Date b= new Date(24,1,2000);
-		a.hienThi();
-		b.hienThi();
-		a.nhap();
-		a.hienThi();
-		System.out.print("\nNgay Hom Sau: ");
-		a.ngayHomSau();
-		a.hienThi();
-		System.out.print("\nCong ngay: ");
-		System.out.print("\nNhap so ngay cong vao: "); int congNgay= sc.nextInt();
-		a.congNgay(congNgay).hienThi();
-		
-	}
+//        public static void main(String[] args) {
+//		Scanner sc= new Scanner(System.in);
+//		Date a= new Date();
+//		Date b= new Date(24,1,2000);
+//		a.hienThi();
+//		b.hienThi();
+//		a.nhap();
+//		a.hienThi();
+//		System.out.print("\nNgay Hom Sau: ");
+//		a.ngayHomSau();
+//		a.hienThi();
+//		System.out.print("\nCong ngay: ");
+//		System.out.print("\nNhap so ngay cong vao: "); int congNgay= sc.nextInt();
+//		a.congNgay(congNgay).hienThi();
+//		
+//	}
         
 }

@@ -116,20 +116,25 @@ INSERT INTO Gym_Contract VALUES('HD003','2021-04-20','2021-04-20','C003','GSP1',
 SELECT * FROM Weekdays;
 DROP TABLE Weekdays;
 
+INSERT INTO Weekdays VALUES('Mon','Apr 19 2021','C002','HD002');
+INSERT INTO Weekdays VALUES('Mon','Apr 19 2021','C001','HD001');
+INSERT INTO Weekdays VALUES('Tue','Apr 20 2021','C003','HD003');
+INSERT INTO Weekdays VALUES('Wed','Apr 21 2021','C001','HD001');
+INSERT INTO Weekdays VALUES('Wed','Apr 21 2021','C002','HD001');
+INSERT INTO Weekdays VALUES('Thu','Apr 22 2021','C001','HD001');
+INSERT INTO Weekdays VALUES('Thu','Apr 22 2021','C002','HD002');
+INSERT INTO Weekdays VALUES('Thu','Apr 22 2021','C003','HD003');
+INSERT INTO Weekdays VALUES('Fri','Apr 23 2021','C002','HD002');
+INSERT INTO Weekdays VALUES('Fri','Apr 23 2021','C001','HD001');
+INSERT INTO Weekdays VALUES('Sat','Apr 24 2021','C003','HD003');
+INSERT INTO Weekdays VALUES('Sun','Apr 25 2021','C002','HD002');
+
 INSERT INTO Weekdays VALUES('Mon','Apr 26 2021','C002','HD002');
-INSERT INTO Weekdays VALUES('Mon','Apr 26 2021','C001','HD001');
 INSERT INTO Weekdays VALUES('Tue','Apr 27 2021','C003','HD003');
-INSERT INTO Weekdays VALUES('Wed','Apr 27 2021','C001','HD001');
-INSERT INTO Weekdays VALUES('Wed','Apr 27 2021','C001','HD001');
-INSERT INTO Weekdays VALUES('Thu','Apr 28 2021','C001','HD001');
-INSERT INTO Weekdays VALUES('Thu','Apr 28 2021','C002','HD002');
-INSERT INTO Weekdays VALUES('Thu','Apr 28 2021','C003','HD003');
-INSERT INTO Weekdays VALUES('Fri','Apr 29 2021','C002','HD002');
-INSERT INTO Weekdays VALUES('Fri','Apr 29 2021','C001','HD001');
-INSERT INTO Weekdays VALUES('Sat','Apr 30 2021','C003','HD003');
-INSERT INTO Weekdays VALUES('Sun','Jul 1 2021','C002','HD002');
-INSERT INTO Weekdays VALUES('Sun','2021 Jul 1','C002','HD002');
-INSERT INTO Weekdays VALUES('Sun','2021 -05- 01','C002','HD002');
+INSERT INTO Weekdays VALUES('Wed','Apr 28 2021','C001','HD001');
+INSERT INTO Weekdays VALUES('Wed','Apr 28 2021','C002','HD001');
+INSERT INTO Weekdays VALUES('Thu','Apr 29 2021','C001','HD001');
+INSERT INTO Weekdays VALUES('Sun','2021 -05- 02','C002','HD002');
 
 --/////////////////////////////////////////////////////////////////////////
 
@@ -235,3 +240,31 @@ SELECT MAX(ID_Contract) AS MAX_ID FROM Gym_Contract;
 SELECT * FROM Gym_service_package;
 
 SELECT ID_Package FROM Gym_service_package WHERE Title_Package='Goi 6 thang';
+
+SELECT Cost FROM Gym_service_package WHERE Title_Package='Goi 6 thang';
+
+SELECT Work FROM Customer WHERE ID_Customer='C001';
+
+SELECT * FROM Weekdays ORDER BY Date_Workout ASC
+
+--Dem So luong khach hang tap theo ngay
+SELECT ID_Weekdays, COUNT(ID_Customer)
+FROM Weekdays
+GROUP BY ID_Weekdays;
+
+SELECT Date_Workout,COUNT(ID_Customer) AS SoLuongKhachHang
+FROM Weekdays
+WHERE ID_Weekdays='Thu'
+GROUP BY Date_Workout;
+
+--Dem tong so luong khach hang tap vao ngay thu 4 hang tuan
+
+--Tinh trung binh vao mot buoi(thu) co trung binh bao nhieu khach hang den tap
+--So luong khach hang vao buoi do trong cac tuan/so luong buoi o cac tuan
+
+SELECT COUNT(*)
+From (SELECT COUNT(ID_Customer) AS TongSoLuongKhachHangVaoBuoiCacTuan
+FROM Weekdays
+WHERE ID_Weekdays='Thu'
+GROUP BY Date_Workout);
+

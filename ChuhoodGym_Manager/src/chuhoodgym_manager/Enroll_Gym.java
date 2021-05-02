@@ -842,7 +842,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
         return work;
     }
     
-    String Discount="Khong Co Dícount";
+    String Discount="Khong Co Discount";
     private double Discount(){
         double discount=0;
         if(getTitleWorkFromCustomer().equalsIgnoreCase("sinh vien")||getTitleWorkFromCustomer().equalsIgnoreCase("hoc sinh")){

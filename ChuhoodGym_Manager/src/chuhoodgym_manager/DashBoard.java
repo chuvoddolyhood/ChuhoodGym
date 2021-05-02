@@ -34,6 +34,11 @@ public class DashBoard extends javax.swing.JFrame {
         //set Current Time
         setCurretTime();
         
+        
+        //Gan ten UserNameLogin
+        Login log=new Login();
+        jTextField1.setText(log.userNameLogin);
+        System.out.println(log.userNameLogin);
     }
 
     /**
@@ -61,6 +66,8 @@ public class DashBoard extends javax.swing.JFrame {
         tblCustomerCheck = new javax.swing.JTable();
         txtCurrentTime = new javax.swing.JTextField();
         enroll = new javax.swing.JButton();
+        lblUserNameLogin = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,12 +75,27 @@ public class DashBoard extends javax.swing.JFrame {
 
         lblLogout.setText("Log out");
         lblLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseClicked(evt);
+            }
+        });
 
         lblCustomer.setText("Customer");
         lblCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCustomerMouseClicked(evt);
+            }
+        });
 
         lblEmployee.setText("Employee & PT");
         lblEmployee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEmployeeMouseClicked(evt);
+            }
+        });
 
         jLabel2.setText("Chuhood Gym");
 
@@ -82,21 +104,26 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCustomer)
-                    .addComponent(jLabel2)
-                    .addComponent(lblEmployee))
-                .addContainerGap(139, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(lblCustomer))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(lblEmployee)))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel2)
-                .addGap(84, 84, 84)
+                .addGap(329, 329, 329)
                 .addComponent(lblEmployee)
-                .addGap(54, 54, 54)
+                .addGap(73, 73, 73)
                 .addComponent(lblCustomer)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -163,7 +190,7 @@ public class DashBoard extends javax.swing.JFrame {
                     .addComponent(btnCheck))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         txtCurrentTime.setFocusable(false);
@@ -175,6 +202,8 @@ public class DashBoard extends javax.swing.JFrame {
             }
         });
 
+        lblUserNameLogin.setText("jLabel6");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -184,19 +213,29 @@ public class DashBoard extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblLogout)
-                        .addGap(59, 59, 59))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(txtCurrentTime, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(308, 308, 308)
-                                .addComponent(enroll)))
-                        .addContainerGap(462, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(308, 308, 308)
+                                        .addComponent(enroll))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(297, 297, 297)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(451, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblLogout)
+                                .addGap(59, 59, 59))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblUserNameLogin)
+                                .addGap(514, 514, 514))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,16 +249,20 @@ public class DashBoard extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(4, 4, 4)
                         .addComponent(lblLogout)
-                        .addGap(30, 30, 30)
+                        .addGap(1, 1, 1)
+                        .addComponent(lblUserNameLogin)
+                        .addGap(8, 8, 8)
                         .addComponent(txtCurrentTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 20, 20)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(244, 244, 244)
+                                .addComponent(enroll))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(293, 293, 293)
-                                .addComponent(enroll)))
-                        .addGap(0, 335, Short.MAX_VALUE)))
+                                .addGap(42, 42, 42)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 381, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -230,8 +273,6 @@ public class DashBoard extends javax.swing.JFrame {
     Calendar cal=Calendar.getInstance();
     private void setCurretTime(){
         txtCurrentTime.setText(dateFormat.format(cal.getTime()));
-        String day=new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-        //System.out.println(day);
     }
     
     private void loadInfoContractOfCustomer(){
@@ -289,7 +330,6 @@ public class DashBoard extends javax.swing.JFrame {
         if(txtIDCheck.getText().equals("")==false && getStatusContract().equals("Live")){
             loadInfoContractOfCustomer();
                        
-            
             String query="INSERT INTO Weekdays VALUES(?,?,?,?);";
             String date=String.valueOf(cal.getTime()).substring(0, 3);
             String day=new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
@@ -320,6 +360,24 @@ public class DashBoard extends javax.swing.JFrame {
         Enroll_Gym enroll =new Enroll_Gym();
         enroll.setVisible(true);
     }//GEN-LAST:event_enrollActionPerformed
+
+    private void lblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCustomerMouseClicked
+        Customer cu=new Customer();
+        cu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblCustomerMouseClicked
+
+    private void lblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEmployeeMouseClicked
+        Employee em=new Employee();
+        em.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblEmployeeMouseClicked
+
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
+        Login lo=new Login();
+        lo.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblLogoutMouseClicked
 
     /**
      * @param args the command line arguments
@@ -367,9 +425,11 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblCustomer;
     private javax.swing.JLabel lblEmployee;
     private javax.swing.JLabel lblLogout;
+    private javax.swing.JLabel lblUserNameLogin;
     private javax.swing.JTable tblCustomerCheck;
     private javax.swing.JTextField txtCurrentTime;
     private javax.swing.JTextField txtIDCheck;

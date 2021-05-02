@@ -5,6 +5,11 @@
  */
 package chuhoodgym_manager;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -24,6 +29,14 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
+        this.setBackground(new Color(0,0,0,0));
+        jPanel1.setBackground(new Color(0,0,0,0));
+        txtUserName.setBackground(new Color(0,0,0,0));
+        txtPassword.setBackground(new Color(0,0,0,0));  
     }
 
     /**
@@ -35,83 +48,108 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         txtUserName = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
         txtPassword = new javax.swing.JPasswordField();
-        btnLogin = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        ckbShowPassword = new javax.swing.JCheckBox();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        btnLogin = new javax.swing.JLabel();
+        btnCancel = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
-        jLabel1.setText("Login");
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Username");
-
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Password");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 450, -1, -1));
 
-        btnLogin.setText("Login");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Username");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, -1, -1));
+
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Copyright © 2021 • All rights reserved");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 860, -1, -1));
+
+        txtUserName.setFont(new java.awt.Font("Tahoma", 2, 20)); // NOI18N
+        txtUserName.setForeground(new java.awt.Color(255, 255, 255));
+        txtUserName.setBorder(null);
+        jPanel1.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 380, 460, -1));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 410, 460, 30));
+
+        txtPassword.setFont(new java.awt.Font("Tahoma", 2, 20)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(255, 255, 255));
+        txtPassword.setBorder(null);
+        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 490, 460, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 520, 460, 30));
+
+        ckbShowPassword.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        ckbShowPassword.setForeground(new java.awt.Color(255, 255, 255));
+        ckbShowPassword.setText("Show Password");
+        ckbShowPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ckbShowPasswordMouseClicked(evt);
             }
         });
+        jPanel1.add(ckbShowPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 530, -1, -1));
 
-        btnCancel.setText("Cancel");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
+        jLabel9.setFont(new java.awt.Font("UTM Gradoo", 1, 65)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Chuhood.Gym");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Login");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 230, -1, -1));
+
+        btnLogin.setIcon(new javax.swing.ImageIcon("F:\\Programming\\App\\ChuhoodGym\\photo\\buttonLogin.png")); // NOI18N
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLoginMouseClicked(evt);
             }
         });
+        jPanel1.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 640, -1, -1));
+
+        btnCancel.setIcon(new javax.swing.ImageIcon("F:\\Programming\\App\\ChuhoodGym\\photo\\buttonCancel.png")); // NOI18N
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 640, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon("F:\\Programming\\App\\ChuhoodGym\\photo\\gymLogin3.png")); // NOI18N
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 0, -1, -1));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon("F:\\Programming\\App\\ChuhoodGym\\photo\\gymLogin1.png")); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(397, 397, 397))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(97, 97, 97))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(106, 106, 106)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                            .addComponent(txtPassword))
-                        .addGap(157, 157, 157))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(164, 701, Short.MAX_VALUE)
-                .addComponent(btnLogin)
-                .addGap(90, 90, 90)
-                .addComponent(btnCancel)
-                .addGap(225, 225, 225))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addComponent(jLabel1)
-                .addGap(76, 76, 76)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(114, 114, 114)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(130, 130, 130)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin)
-                    .addComponent(btnCancel))
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -179,12 +217,26 @@ public class Login extends javax.swing.JFrame {
             isCorrect = false;
             JOptionPane.showMessageDialog(rootPane, "Sai mat khau");
         }
-        else JOptionPane.showMessageDialog(rootPane, "Mat khau hop le");
+        //else JOptionPane.showMessageDialog(rootPane, "Mat khau hop le");
     
     return isCorrect;
 }
     
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+//   checkBox.addActionListener(new ActionListener() {
+//   public void actionPerformed(ActionEvent e) {
+    private void showPass(){
+        if(ckbShowPassword.isSelected()){
+            txtPassword.setText(getPassword);
+            System.out.print(getPassword);
+        }
+        else{
+            txtPassword.setEchoChar('*');
+        }
+    }
+    
+    
+    public String userNameLogin;
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         String titleWork = null;
         if(confirmInfo()==true){
             if(isPasswordCorrect()==true){
@@ -202,26 +254,45 @@ public class Login extends javax.swing.JFrame {
                     PreparedStatement ps=con.prepareStatement(query);
                     ps.setString(1, userName);
                     ps.setString(2,inputPasswordToDatabase);
-                
+                    userNameLogin=userName; //Lay ten username
+                    
                     ResultSet rs=ps.executeQuery();
-                    while(rs.next())
-                        titleWork=rs.getString("Title_Work");
+                    if(rs!=null){
+                        while(rs.next())
+                            titleWork=rs.getString("Title_Work");
+                    }
+                    else JOptionPane.showMessageDialog(rootPane, "Tai khoan khong ton tai");
                 }catch(Exception ex){
                     System.out.println(ex);
                 }
-                if(titleWork.equals("Quan ly")==true)
-                    JOptionPane.showMessageDialog(rootPane, "Dang Nhap Thanh Cong");
+                if(titleWork.equals("Quan ly")==true){
+                    System.out.println(userNameLogin);
+                    DashBoard db=new DashBoard();
+                    db.setVisible(true);
+                    this.setVisible(false);
+                }
+                    
                 else JOptionPane.showMessageDialog(rootPane, "Ban khong phai admin");
             }
         }
         else JOptionPane.showMessageDialog(rootPane, "Dang nhap Khong Thanh Cong");
-    }//GEN-LAST:event_btnLoginActionPerformed
+    }//GEN-LAST:event_btnLoginMouseClicked
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // TODO add your handling code here:
+    private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
         System.exit(0);
-    }//GEN-LAST:event_btnCancelActionPerformed
+    }//GEN-LAST:event_btnCancelMouseClicked
 
+    private void ckbShowPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ckbShowPasswordMouseClicked
+        if(ckbShowPassword.isSelected()){
+            txtPassword.setEchoChar((char)0);
+        }
+        else{
+            txtPassword.setEchoChar('*');
+        }
+    }//GEN-LAST:event_ckbShowPasswordMouseClicked
+
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -258,11 +329,19 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnLogin;
+    private javax.swing.JLabel btnCancel;
+    private javax.swing.JLabel btnLogin;
+    private javax.swing.JCheckBox ckbShowPassword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
