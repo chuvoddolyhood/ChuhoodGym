@@ -5,6 +5,9 @@
  */
 package chuhoodgym_manager;
 
+
+import static chuhoodgym_manager.barchart.createChart;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,6 +20,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.PieDataset;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 /**
  *
@@ -36,7 +49,7 @@ public class DashBoard extends javax.swing.JFrame {
         //set Current Time
         setCurretTime();
         
-       
+        setBarChart();
     }
 
     /**
@@ -102,8 +115,9 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        pnlTracking = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
+        pnlBarChart = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         lblLogout = new javax.swing.JLabel();
 
@@ -114,7 +128,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(34, 40, 44));
 
-        jPanel2.setBackground(new java.awt.Color(56, 65, 72));
+        jPanel2.setBackground(new java.awt.Color(44, 52, 58));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -122,7 +136,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         txtCurrentTime.setFocusable(false);
 
-        jPanel7.setBackground(new java.awt.Color(44, 52, 58));
+        jPanel7.setBackground(new java.awt.Color(56, 65, 72));
         jPanel7.setForeground(new java.awt.Color(153, 153, 153));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -189,7 +203,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel9.setBackground(new java.awt.Color(44, 52, 58));
+        jPanel9.setBackground(new java.awt.Color(56, 65, 72));
         jPanel9.setForeground(new java.awt.Color(102, 102, 102));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -689,26 +703,41 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGap(58, 58, 58))
         );
 
-        jPanel5.setBackground(new java.awt.Color(56, 65, 72));
+        pnlTracking.setBackground(new java.awt.Color(44, 52, 58));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Tracking");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel12)
-                .addContainerGap(399, Short.MAX_VALUE))
+        javax.swing.GroupLayout pnlBarChartLayout = new javax.swing.GroupLayout(pnlBarChart);
+        pnlBarChart.setLayout(pnlBarChartLayout);
+        pnlBarChartLayout.setHorizontalGroup(
+            pnlBarChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 538, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        pnlBarChartLayout.setVerticalGroup(
+            pnlBarChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 586, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout pnlTrackingLayout = new javax.swing.GroupLayout(pnlTracking);
+        pnlTracking.setLayout(pnlTrackingLayout);
+        pnlTrackingLayout.setHorizontalGroup(
+            pnlTrackingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTrackingLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(pnlTrackingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        pnlTrackingLayout.setVerticalGroup(
+            pnlTrackingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTrackingLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel12)
+                .addGap(29, 29, 29)
+                .addComponent(pnlBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -732,7 +761,7 @@ public class DashBoard extends javax.swing.JFrame {
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(pnlTracking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(enroll))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -751,7 +780,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlTracking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(pnlCustomerDash, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -940,6 +969,13 @@ public class DashBoard extends javax.swing.JFrame {
         c.setColorPanel(pnlTeamDash);
     }//GEN-LAST:event_pnlTeamDashMouseMoved
 
+
+    //Bar Chart
+    private void setBarChart(){
+        barchart bc = new barchart();
+        bc.setupBarChart(pnlBarChart);
+    }
+    
     
     
     /**
@@ -1018,7 +1054,6 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
@@ -1026,12 +1061,14 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel lblCustomer;
     private javax.swing.JLabel lblEmployee;
     private javax.swing.JLabel lblLogout;
+    private javax.swing.JPanel pnlBarChart;
     private javax.swing.JPanel pnlCustomer;
     private javax.swing.JPanel pnlCustomerDash;
     private javax.swing.JPanel pnlCustomerRear;
     private javax.swing.JPanel pnlEmployee;
     private javax.swing.JPanel pnlEmployeeRear;
     private javax.swing.JPanel pnlTeamDash;
+    private javax.swing.JPanel pnlTracking;
     private javax.swing.JTable tblCustomerCheck;
     private javax.swing.JTextField txtCurrentTime;
     private javax.swing.JTextField txtIDCheck;
