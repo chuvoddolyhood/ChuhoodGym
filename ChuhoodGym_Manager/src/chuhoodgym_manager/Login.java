@@ -30,6 +30,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
+        //Thiet lap kich thuoc cho frame
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
@@ -173,7 +174,7 @@ public class Login extends javax.swing.JFrame {
     private boolean decodePassword(String passwordFromDatabase){
         boolean checkPass=true;
         char[] passWordFromInput=txtPassword.getPassword(); //Mat khau bi ma hoa lay tu form
-        char[] passWordFormDatabaseToChar = passwordFromDatabase.toCharArray(); //Mat khau bi ma hoa lay tu database chuyen sang char
+        char[] passWordFormDatabaseToChar = passwordFromDatabase.toCharArray(); //Mat khau lay tu database chuyen sang char
         
         if (passWordFromInput.length != passWordFormDatabaseToChar.length) {
             checkPass = false;
@@ -204,8 +205,13 @@ public class Login extends javax.swing.JFrame {
             
             //Co Bug: Neu nhap khong dung username thi resultset se rong
             
-            while(rs.next())
+            if(rs.next()){
                 passwordFromDatabase=rs.getString("Password");
+                if(rs.wasNull())
+                    JOptionPane.showMessageDialog(rootPane, "Tai khoan khong ton tai");
+                
+            }
+            
         }catch(Exception ex){
             ex.printStackTrace();
         }
@@ -222,20 +228,7 @@ public class Login extends javax.swing.JFrame {
     return isCorrect;
 }
     
-//   checkBox.addActionListener(new ActionListener() {
-//   public void actionPerformed(ActionEvent e) {
-    private void showPass(){
-        if(ckbShowPassword.isSelected()){
-            txtPassword.setText(getPassword);
-            System.out.print(getPassword);
-        }
-        else{
-            txtPassword.setEchoChar('*');
-        }
-    }
-    
-    
-    public String userNameLogin;
+   
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         String titleWork = null;
         if(confirmInfo()==true){
@@ -254,19 +247,14 @@ public class Login extends javax.swing.JFrame {
                     PreparedStatement ps=con.prepareStatement(query);
                     ps.setString(1, userName);
                     ps.setString(2,inputPasswordToDatabase);
-                    userNameLogin=userName; //Lay ten username
                     
                     ResultSet rs=ps.executeQuery();
-                    if(rs!=null){
-                        while(rs.next())
+                    while(rs.next())
                             titleWork=rs.getString("Title_Work");
-                    }
-                    else JOptionPane.showMessageDialog(rootPane, "Tai khoan khong ton tai");
                 }catch(Exception ex){
                     System.out.println(ex);
                 }
                 if(titleWork.equals("Quan ly")==true){
-                    System.out.println(userNameLogin);
                     DashBoard db=new DashBoard();
                     db.setVisible(true);
                     this.setVisible(false);
@@ -282,6 +270,7 @@ public class Login extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnCancelMouseClicked
 
+    //Hien thi password
     private void ckbShowPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ckbShowPasswordMouseClicked
         if(ckbShowPassword.isSelected()){
             txtPassword.setEchoChar((char)0);
@@ -291,7 +280,6 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ckbShowPasswordMouseClicked
 
-    
     
     /**
      * @param args the command line arguments
