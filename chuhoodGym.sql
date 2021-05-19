@@ -268,3 +268,25 @@ FROM Weekdays
 WHERE ID_Weekdays='Thu'
 GROUP BY Date_Workout);
 
+
+
+SELECT * FROM Weekdays;
+
+SELECT ID_Weekdays, COUNT(ID_Customer) AS So_Luong_Khach_Hang
+FROM Weekdays
+GROUP BY ID_Weekdays;
+
+--Tong So luong khach hang vao thu 2 
+SELECT COUNT(ID_Customer) AS So_Luong_Khach_Hang
+FROM Weekdays
+WHERE ID_Weekdays='Mon';
+
+--Tong so luong ngay thu 2
+SELECT MIN(Date_Workout)
+FROM Weekdays
+WHERE ID_Weekdays='Mon';
+
+SELECT MAX(Date_Workout)
+FROM Weekdays
+WHERE ID_Weekdays='Mon';
+	

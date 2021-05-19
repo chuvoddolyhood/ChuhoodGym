@@ -5,18 +5,10 @@
  */
 package chuhoodgym_manager;
 
+import controller.loginController;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Arrays;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author Tran Nhan Nghia
@@ -93,6 +85,11 @@ public class Login extends javax.swing.JFrame {
         txtPassword.setFont(new java.awt.Font("Tahoma", 2, 20)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
         txtPassword.setBorder(null);
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
         jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 490, 460, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 520, 460, 30));
 
@@ -156,114 +153,13 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Kiem tra thong tin nhap day du hay ko
-    private boolean confirmInfo(){
-        boolean check=true;
-        if(txtPassword.getPassword().length==0){
-            JOptionPane.showMessageDialog(rootPane, "Chua nhap password");
-            check=false;
-        }
-        else if(txtUserName.getText().equals("")==true){
-            JOptionPane.showMessageDialog(rootPane, "Chua nhap username");
-            check=false;
-        }
-        return check;
-    }
-    
-    //Gia ma mat khau
-    private boolean decodePassword(String passwordFromDatabase){
-        boolean checkPass=true;
-        char[] passWordFromInput=txtPassword.getPassword(); //Mat khau bi ma hoa lay tu form
-        char[] passWordFormDatabaseToChar = passwordFromDatabase.toCharArray(); //Mat khau lay tu database chuyen sang char
-        
-        if (passWordFromInput.length != passWordFormDatabaseToChar.length) {
-            checkPass = false;
-        } else {
-            checkPass = Arrays.equals (passWordFromInput, passWordFormDatabaseToChar);
-        }
-        
-        //Zero out the password.
-        Arrays.fill(passWordFormDatabaseToChar,'0');
-
-        return checkPass;
-    }
-    
-    private String getPassword; //Lay password dung 
-    //Lay password tu csdl sau khi nhap username va kiem tra mat khau co dung hay khong
-    private boolean isPasswordCorrect() {
-        boolean isCorrect = true;
-        String userName=txtUserName.getText();
-        String passwordFromDatabase=null;
-        try{
-            String queryFindPass="SELECT Password FROM Account WHERE Username=?;";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
-            Connection con=DriverManager.getConnection(dbURL);
-            PreparedStatement ps=con.prepareStatement(queryFindPass);
-            ps.setString(1, userName);
-            ResultSet rs=ps.executeQuery();
-            
-            //Co Bug: Neu nhap khong dung username thi resultset se rong
-            
-            if(rs.next()){
-                passwordFromDatabase=rs.getString("Password");
-                if(rs.wasNull())
-                    JOptionPane.showMessageDialog(rootPane, "Tai khoan khong ton tai");
-                
-            }
-            
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
-        
-        getPassword=passwordFromDatabase;
-        
-        //Giai ma password va kiem tra
-        if(decodePassword(passwordFromDatabase)==false){
-            isCorrect = false;
-            JOptionPane.showMessageDialog(rootPane, "Sai mat khau");
-        }
-        //else JOptionPane.showMessageDialog(rootPane, "Mat khau hop le");
-    
-    return isCorrect;
-}
-    
-   
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        String titleWork = null;
-        if(confirmInfo()==true){
-            if(isPasswordCorrect()==true){
-                //Xu ly kiem tra neu nguoi dung dang nhap user va pass chinh xac la admin thi moi login vao
-                //Con khong phai thi khong vao duoc
-                
-                String query="SELECT W.Title_Work FROM Employee E JOIN Account A ON E.ID_Employee=A.ID_Employee "
-                    + "JOIN Work W ON E.ID_Work=W.ID_Work WHERE A.Username=? AND A.Password=?;";
-                String userName=txtUserName.getText();
-                String inputPasswordToDatabase = getPassword;
-                try{
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                    String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
-                    Connection con=DriverManager.getConnection(dbURL);
-                    PreparedStatement ps=con.prepareStatement(query);
-                    ps.setString(1, userName);
-                    ps.setString(2,inputPasswordToDatabase);
-                    
-                    ResultSet rs=ps.executeQuery();
-                    while(rs.next())
-                            titleWork=rs.getString("Title_Work");
-                }catch(Exception ex){
-                    System.out.println(ex);
-                }
-                if(titleWork.equals("Quan ly")==true){
-                    DashBoard db=new DashBoard();
-                    db.setVisible(true);
-                    this.setVisible(false);
-                }
-                    
-                else JOptionPane.showMessageDialog(rootPane, "Ban khong phai admin");
-            }
-        }
-        else JOptionPane.showMessageDialog(rootPane, "Dang nhap Khong Thanh Cong");
+        String username=txtUserName.getText();
+        char[] password=txtPassword.getPassword();
+        loginController lc=new loginController();
+        lc.getNamePass(username, password);
+        lc.login();
+
     }//GEN-LAST:event_btnLoginMouseClicked
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
@@ -280,6 +176,15 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ckbShowPasswordMouseClicked
 
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        String username=txtUserName.getText();
+        char[] password=txtPassword.getPassword();
+        loginController lc = new loginController();
+        lc.getNamePass(username, password);
+        lc.keypressedLogin(evt);
+    }//GEN-LAST:event_txtPasswordKeyPressed
+
+    
     
     /**
      * @param args the command line arguments
@@ -333,4 +238,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
+ 
 }

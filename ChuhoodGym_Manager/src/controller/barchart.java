@@ -1,4 +1,4 @@
-package chuhoodgym_manager;
+package controller;
 
 
 
