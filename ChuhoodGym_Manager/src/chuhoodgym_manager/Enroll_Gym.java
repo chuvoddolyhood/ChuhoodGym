@@ -901,7 +901,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
             ps.setString(4, idCustomer);
             ps.setString(5, idPackage);
             ps.setInt(6, grandTotal);
-            ps.setString(7, status);
+            ps.setString(7, "null");
 
             ps.executeUpdate();
         }catch(Exception ex){

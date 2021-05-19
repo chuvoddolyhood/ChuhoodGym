@@ -188,7 +188,7 @@
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                           <Component id="txtIDCheck" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnCheck" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCheckin" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -212,7 +212,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtIDCheck" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCheckin" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="271" max="-2" attributes="0"/>
@@ -246,12 +246,12 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtIDCheck">
                 </Component>
-                <Component class="javax.swing.JButton" name="btnCheck">
+                <Component class="javax.swing.JButton" name="btnCheckin">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Check"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCheckActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCheckinActionPerformed"/>
                   </Events>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -294,9 +294,9 @@
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                           <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          <Component id="txtIDCheck1" max="32767" attributes="0"/>
+                          <Component id="txtIDCheckout" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnCheck1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCheckOut" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -308,8 +308,8 @@
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtIDCheck1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtIDCheckout" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCheckOut" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="38" max="32767" attributes="0"/>
@@ -329,12 +329,15 @@
                     <Property name="text" type="java.lang.String" value="Check - out"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtIDCheck1">
+                <Component class="javax.swing.JTextField" name="txtIDCheckout">
                 </Component>
-                <Component class="javax.swing.JButton" name="btnCheck1">
+                <Component class="javax.swing.JButton" name="btnCheckOut">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Check"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCheckOutActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel15">
                   <Properties>
@@ -762,7 +765,7 @@
             <Property name="useNullLayout" type="boolean" value="false"/>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel8">
+            <Component class="javax.swing.JLabel" name="lblCusAttendants">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="50" style="1"/>
@@ -770,15 +773,15 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="cc" red="cc" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="40"/>
+                <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="200" y="10" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="230" y="10" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel10">
+            <Component class="javax.swing.JLabel" name="lblCusPeopleToday">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="50" style="1"/>
@@ -786,11 +789,11 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="cc" red="cc" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="120"/>
+                <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="170" y="80" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="230" y="80" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>

@@ -7,9 +7,7 @@ package chuhoodgym_manager;
 
 
 import controller.barchart;
-import static controller.barchart.createChart;
-import java.awt.BorderLayout;
-import java.awt.Color;
+import controller.dashBoardController;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,18 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.PieDataset;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 
 /**
  *
@@ -73,13 +60,13 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtIDCheck = new javax.swing.JTextField();
-        btnCheck = new javax.swing.JButton();
+        btnCheckin = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCustomerCheck = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        txtIDCheck1 = new javax.swing.JTextField();
-        btnCheck1 = new javax.swing.JButton();
+        txtIDCheckout = new javax.swing.JTextField();
+        btnCheckOut = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         enroll = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -99,8 +86,8 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         pnlCustomerDash = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblCusAttendants = new javax.swing.JLabel();
+        lblCusPeopleToday = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -157,10 +144,10 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("ID");
 
-        btnCheck.setText("Check");
-        btnCheck.addActionListener(new java.awt.event.ActionListener() {
+        btnCheckin.setText("Check");
+        btnCheckin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCheckActionPerformed(evt);
+                btnCheckinActionPerformed(evt);
             }
         });
 
@@ -187,7 +174,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(txtIDCheck)
                 .addGap(18, 18, 18)
-                .addComponent(btnCheck)
+                .addComponent(btnCheckin)
                 .addGap(26, 26, 26))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
@@ -207,7 +194,7 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtIDCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCheck))
+                    .addComponent(btnCheckin))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -220,7 +207,12 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Check - out");
 
-        btnCheck1.setText("Check");
+        btnCheckOut.setText("Check");
+        btnCheckOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckOutActionPerformed(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -238,9 +230,9 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jLabel15)
                 .addGap(28, 28, 28)
-                .addComponent(txtIDCheck1)
+                .addComponent(txtIDCheckout)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCheck1)
+                .addComponent(btnCheckOut)
                 .addGap(27, 27, 27))
         );
         jPanel9Layout.setVerticalGroup(
@@ -250,8 +242,8 @@ public class DashBoard extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addGap(34, 34, 34)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIDCheck1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCheck1)
+                    .addComponent(txtIDCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCheckOut)
                     .addComponent(jLabel15))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
@@ -587,15 +579,15 @@ public class DashBoard extends javax.swing.JFrame {
         });
         pnlCustomerDash.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 50)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel8.setText("40");
-        pnlCustomerDash.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, -1, -1));
+        lblCusAttendants.setFont(new java.awt.Font("Tahoma", 1, 50)); // NOI18N
+        lblCusAttendants.setForeground(new java.awt.Color(204, 204, 204));
+        lblCusAttendants.setText("0");
+        pnlCustomerDash.add(lblCusAttendants, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 50)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel10.setText("120");
-        pnlCustomerDash.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, -1));
+        lblCusPeopleToday.setFont(new java.awt.Font("Tahoma", 1, 50)); // NOI18N
+        lblCusPeopleToday.setForeground(new java.awt.Color(204, 204, 204));
+        lblCusPeopleToday.setText("0");
+        pnlCustomerDash.add(lblCusPeopleToday, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 204, 204));
@@ -928,6 +920,7 @@ public class DashBoard extends javax.swing.JFrame {
         txtCurrentTime.setText(dateFormat.format(cal.getTime()));
     }
     
+    //Load contract into table
     private void loadInfoContractOfCustomer(){
         try{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -957,6 +950,7 @@ public class DashBoard extends javax.swing.JFrame {
         }
     }
     
+    //Check status of contract
     private String getStatusContract(){
         String status=null;
         try{
@@ -978,9 +972,11 @@ public class DashBoard extends javax.swing.JFrame {
         }
         return status;
     }
-    
-    private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
-        if(txtIDCheck.getText().equals("")==false && getStatusContract().equals("Live")){
+        
+    private int countCusAttendant=0; //So khach hang hien tai
+    private int countCusPeopleToday=0; //So khach hang trong ngay
+    private void btnCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckinActionPerformed
+        if(txtIDCheck.getText().equals("")==false && !getStatusContract().equals("Expire")){
             loadInfoContractOfCustomer();
                        
             String query="INSERT INTO Weekdays VALUES(?,?,?,?);";
@@ -1000,6 +996,10 @@ public class DashBoard extends javax.swing.JFrame {
                 ps.setString(4, idContract);
 
                 ps.executeUpdate();
+                
+                lblCusAttendants.setText(String.valueOf(++countCusAttendant));
+                lblCusPeopleToday.setText(String.valueOf(++countCusPeopleToday));
+                
             }catch(Exception ex){
                 System.out.println(ex);
             }
@@ -1007,7 +1007,7 @@ public class DashBoard extends javax.swing.JFrame {
         }
         else JOptionPane.showMessageDialog(rootPane, "Khach hang nay da het han dang ky goi ");
         
-    }//GEN-LAST:event_btnCheckActionPerformed
+    }//GEN-LAST:event_btnCheckinActionPerformed
 
     private void enrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enrollActionPerformed
         Enroll_Gym enroll =new Enroll_Gym();
@@ -1114,6 +1114,19 @@ public class DashBoard extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    // checkout button
+    private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
+        if(txtIDCheckout.getText().equals("")==false){
+            dashBoardController dc = new dashBoardController();
+            dc.getIDCustomerCheckOut(txtIDCheckout.getText());
+            dc.updateStatusContract();
+            
+            lblCusAttendants.setText(String.valueOf(--countCusAttendant));
+        }
+        else JOptionPane.showMessageDialog(rootPane, "Vui long nhap ID");
+        
+    }//GEN-LAST:event_btnCheckOutActionPerformed
+
 
     //Bar Chart
     private void setBarChart(){
@@ -1159,12 +1172,11 @@ public class DashBoard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCheck;
-    private javax.swing.JButton btnCheck1;
+    private javax.swing.JButton btnCheckOut;
+    private javax.swing.JButton btnCheckin;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton enroll;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1195,7 +1207,6 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1206,6 +1217,8 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAdmin;
+    private javax.swing.JLabel lblCusAttendants;
+    private javax.swing.JLabel lblCusPeopleToday;
     private javax.swing.JLabel lblCustomer;
     private javax.swing.JLabel lblEmployee;
     private javax.swing.JLabel lblLogout;
@@ -1223,6 +1236,6 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JTable tblCustomerCheck;
     private javax.swing.JTextField txtCurrentTime;
     private javax.swing.JTextField txtIDCheck;
-    private javax.swing.JTextField txtIDCheck1;
+    private javax.swing.JTextField txtIDCheckout;
     // End of variables declaration//GEN-END:variables
 }

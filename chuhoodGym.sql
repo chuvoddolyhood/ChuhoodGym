@@ -269,9 +269,6 @@ WHERE ID_Weekdays='Thu'
 GROUP BY Date_Workout);
 
 
-
-SELECT * FROM Weekdays;
-
 SELECT ID_Weekdays, COUNT(ID_Customer) AS So_Luong_Khach_Hang
 FROM Weekdays
 GROUP BY ID_Weekdays;
@@ -290,3 +287,26 @@ SELECT MAX(Date_Workout)
 FROM Weekdays
 WHERE ID_Weekdays='Mon';
 	
+--Lay ngay hien tai cua khach hang C001
+SELECT MAX(Date_Workout) 
+FROM Weekdays
+WHERE ID_Customer='C001';
+
+--Lay ngay hien tai cua khach hang C001 co hop dong ton tai
+SELECT Date_End FROM Gym_Contract WHERE ID_Contract='HD009';
+
+UPDATE Gym_Contract SET status='Expire' WHERE ID_Contract='HD009'
+UPDATE Gym_Contract SET status='Live' WHERE ID_Contract='HD009'
+
+--Lay id hop dong gan nhat cua khach hang C001
+SELECT MAX(ID_Contract) IDContract FROM Gym_Contract WHERE ID_Customer='C001';
+
+
+SELECT * FROM Gym_Contract;
+SELECT * FROM Weekdays;
+SELECT * FROM Customer;
+DELETE Weekdays WHERE Date_Workout='2021-05-19';
+DELETE Gym_Contract WHERE Date_End='2021-05-19';
+DELETE Gym_Contract WHERE ID_Contract='HD012';
+
+SELECT * FROM Gym_Contract WHERE ID_Contract='C007';
