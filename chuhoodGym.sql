@@ -273,6 +273,7 @@ SELECT ID_Weekdays, COUNT(ID_Customer) AS So_Luong_Khach_Hang
 FROM Weekdays
 GROUP BY ID_Weekdays;
 
+SELECT * FROM Weekdays;
 --Tong So luong khach hang vao thu 2 
 SELECT COUNT(ID_Customer) AS So_Luong_Khach_Hang
 FROM Weekdays
@@ -286,7 +287,14 @@ WHERE ID_Weekdays='Mon';
 SELECT MAX(Date_Workout)
 FROM Weekdays
 WHERE ID_Weekdays='Mon';
-	
+
+--Dem so luong khach hang vao cac ngay trong tuan trong 1 thang 
+SELECT COUNT(ID_Customer) AS So_luong_KH
+FROM Weekdays 
+WHERE MONTH( Date_Workout)='4' AND YEAR( Date_Workout)='2021'
+GROUP BY ID_Weekdays
+ORDER BY ID_Weekdays ASC;
+
 --Lay ngay hien tai cua khach hang C001
 SELECT MAX(Date_Workout) 
 FROM Weekdays
@@ -310,3 +318,5 @@ DELETE Gym_Contract WHERE Date_End='2021-05-19';
 DELETE Gym_Contract WHERE ID_Contract='HD012';
 
 SELECT * FROM Gym_Contract WHERE ID_Contract='C007';
+
+

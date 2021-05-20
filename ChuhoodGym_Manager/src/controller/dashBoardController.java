@@ -120,4 +120,52 @@ public class dashBoardController {
                 System.out.println(ex);
         }
     }
+    
+    private String monthTracking;
+    private String yearTracking;
+    public void getMonthAndYearTracking(String month, String year){
+        monthTracking=month;
+        yearTracking=year;
+        
+    }
+    
+    
+    private void getNumberOfCustomerInTheMonth(){
+        int[] dayOfWeek= new int[7];
+        String query="SELECT COUNT(ID_Customer) AS So_luong_KH FROM Weekdays WHERE MONTH(Date_Workout)=? "
+                + "AND YEAR(Date_Workout)=? GROUP BY ID_Weekdays ORDER BY ID_Weekdays ASC;";           
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
+            Connection con=DriverManager.getConnection(dbURL);
+            PreparedStatement ps=con.prepareStatement(query);
+            ps.setString(1, monthTracking);
+            ps.setString(2, yearTracking);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            int i=0;
+            while (rs.next()) { //rs se chay den cuoi
+                dayOfWeek[i]=rs.getInt("So_luong_KH");
+                i++;
+            }
+            
+        }catch(Exception ex){
+                System.out.println(ex);
+        }
+        fri=dayOfWeek[0];
+        mon=dayOfWeek[1];
+        sat=dayOfWeek[2];
+        sun=dayOfWeek[3];
+        thu=dayOfWeek[4];
+        tue=dayOfWeek[5];
+        wed=dayOfWeek[6];
+    }
+    
+    private int mon, tue, wed, thu, fri, sat, sun;
+    public void getDay(){
+        getNumberOfCustomerInTheMonth();
+        barchart chart= new barchart();
+        chart.pushNumberIntoBarChart(mon, tue, wed, thu, fri, sat, sun);
+    }
 }

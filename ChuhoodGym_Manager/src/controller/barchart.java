@@ -24,7 +24,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * @author Tran Nhan Nghia
  */
 public class barchart{
-    public static JFreeChart createChart() {
+    public JFreeChart createChart() {
         JFreeChart barChart = ChartFactory.createBarChart(
                 "The Average Number Of Customers Chart",
                 "Day of week", "Peoples",
@@ -42,19 +42,20 @@ public class barchart{
         return barChart;
     }
 
-    private static CategoryDataset createDataset() {
-        final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(68, "Số người", "Mon");
-        dataset.addValue(80, "Số người", "Tue");
-        dataset.addValue(88, "Số người", "Wed");
-        dataset.addValue(95, "Số người", "Thu");
-        dataset.addValue(205, "Số người", "Fri");
-        dataset.addValue(205, "Số người", "Sat");
-        dataset.addValue(105, "Số người", "Sun");
+    private CategoryDataset createDataset() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(monCus, "Số người", "Mon");
+        dataset.addValue(tueCus, "Số người", "Tue");
+        dataset.addValue(wedCus, "Số người", "Wed");
+        dataset.addValue(thuCus, "Số người", "Thu");
+        dataset.addValue(friCus, "Số người", "Fri");
+        dataset.addValue(satCus, "Số người", "Sat");
+        dataset.addValue(sunCus, "Số người", "Sun");
+        
         return dataset;
     }
-
-    public static void setupBarChart(JPanel panel) {
+    
+    public void setupBarChart(JPanel panel) {
         ChartPanel chartPanel = new ChartPanel(createChart());
         chartPanel.setPreferredSize(new java.awt.Dimension(panel.getWidth(), panel.getHeight()));
         chartPanel.setBackground(Color.BLACK);
@@ -66,6 +67,27 @@ public class barchart{
         panel.validate();
         panel.repaint();
     }
+    
+    //Sau khi bam nut show chart
+    private static int monCus, tueCus, wedCus, thuCus, friCus, satCus, sunCus;
+    
+        public void pushNumberIntoBarChart(int mon, int tue, int wed, int thu, int fri, int sat, int sun){
+        monCus=mon;
+        tueCus=tue;
+        wedCus=wed;
+        thuCus=thu;
+        friCus=fri;
+        satCus=sat;
+        sunCus=sun;
+        
+    }
+    
+    
+    
+   
+
+    
+    
     
     
     

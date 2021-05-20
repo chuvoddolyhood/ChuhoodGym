@@ -114,6 +114,9 @@ public class DashBoard extends javax.swing.JFrame {
         pnlTracking = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         pnlBarChart = new javax.swing.JPanel();
+        cmbMonthTracking = new javax.swing.JComboBox<>();
+        cmbYearTracking = new javax.swing.JComboBox<>();
+        btnShowTracking = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         lblLogout = new javax.swing.JLabel();
@@ -809,6 +812,17 @@ public class DashBoard extends javax.swing.JFrame {
             .addGap(0, 586, Short.MAX_VALUE)
         );
 
+        cmbMonthTracking.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+
+        cmbYearTracking.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+
+        btnShowTracking.setText("Show");
+        btnShowTracking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowTrackingActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlTrackingLayout = new javax.swing.GroupLayout(pnlTracking);
         pnlTracking.setLayout(pnlTrackingLayout);
         pnlTrackingLayout.setHorizontalGroup(
@@ -817,14 +831,25 @@ public class DashBoard extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(pnlTrackingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
+                    .addGroup(pnlTrackingLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(55, 55, 55)
+                        .addComponent(cmbMonthTracking, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbYearTracking, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnShowTracking)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         pnlTrackingLayout.setVerticalGroup(
             pnlTrackingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTrackingLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel12)
+                .addGroup(pnlTrackingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(cmbMonthTracking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbYearTracking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnShowTracking))
                 .addGap(29, 29, 29)
                 .addComponent(pnlBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1127,6 +1152,16 @@ public class DashBoard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
+    private void btnShowTrackingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowTrackingActionPerformed
+        dashBoardController dc = new dashBoardController();
+        String month = cmbMonthTracking.getItemAt(cmbMonthTracking.getSelectedIndex());
+        String year = cmbYearTracking.getItemAt(cmbYearTracking.getSelectedIndex());
+        dc.getMonthAndYearTracking(month, year);
+        dc.getDay();
+        barchart bc = new barchart();
+        bc.setupBarChart(pnlBarChart);
+    }//GEN-LAST:event_btnShowTrackingActionPerformed
+
 
     //Bar Chart
     private void setBarChart(){
@@ -1175,6 +1210,9 @@ public class DashBoard extends javax.swing.JFrame {
     private javax.swing.JButton btnCheckOut;
     private javax.swing.JButton btnCheckin;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnShowTracking;
+    private javax.swing.JComboBox<String> cmbMonthTracking;
+    private javax.swing.JComboBox<String> cmbYearTracking;
     private javax.swing.JButton enroll;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;

@@ -159,7 +159,7 @@ public class Login extends javax.swing.JFrame {
         loginController lc=new loginController();
         lc.getNamePass(username, password);
         lc.login();
-
+        this.setVisible(false);
     }//GEN-LAST:event_btnLoginMouseClicked
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked

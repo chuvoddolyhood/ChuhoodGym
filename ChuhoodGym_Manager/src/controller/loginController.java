@@ -127,9 +127,10 @@ public class loginController extends Login{
                 if(titleWork.equals("Quan ly")==true){
                     DashBoard db=new DashBoard();
                     db.setVisible(true);
-                    
                     db.setUserNameAdmin(name);
-                    this.setVisible(false);
+//                    super.setVisible(false);
+                    Login l = new Login();
+                    l.setVisible(false);
                 }   
                 else JOptionPane.showMessageDialog(rootPane, "Ban khong phai admin");
             }
