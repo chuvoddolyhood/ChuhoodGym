@@ -88,11 +88,26 @@ public class Enroll_Gym extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(67, 81, 117));
 
         jPanel4.setBackground(new java.awt.Color(18, 12, 50));
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 25)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Invoice");
 
         txtInvoice.setColumns(20);
@@ -114,16 +129,14 @@ public class Enroll_Gym extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Money");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(jLabel9)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -143,19 +156,23 @@ public class Enroll_Gym extends javax.swing.JFrame {
                             .addComponent(txtSumMoney)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))))
                 .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(39, 39, 39)
                 .addComponent(jLabel9)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSumMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegister)
                     .addComponent(btnCancel))
@@ -327,75 +344,89 @@ public class Enroll_Gym extends javax.swing.JFrame {
 
         pnlInfoCustomer.setBackground(new java.awt.Color(18, 12, 50));
         pnlInfoCustomer.setEnabled(false);
+        pnlInfoCustomer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblID.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblID.setForeground(new java.awt.Color(255, 255, 255));
         lblID.setText("ID");
         lblID.setEnabled(false);
+        pnlInfoCustomer.add(lblID, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
         lblName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Name");
         lblName.setEnabled(false);
+        pnlInfoCustomer.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
         lblPhoneNumber.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblPhoneNumber.setForeground(new java.awt.Color(255, 255, 255));
         lblPhoneNumber.setText("Phone Number");
         lblPhoneNumber.setEnabled(false);
+        pnlInfoCustomer.add(lblPhoneNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 95, -1, -1));
 
         lblDOB.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblDOB.setForeground(new java.awt.Color(255, 255, 255));
         lblDOB.setText("DOB");
         lblDOB.setEnabled(false);
+        pnlInfoCustomer.add(lblDOB, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
 
         lblSex.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblSex.setForeground(new java.awt.Color(255, 255, 255));
         lblSex.setText("Sex");
         lblSex.setEnabled(false);
+        pnlInfoCustomer.add(lblSex, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
         txtID.setBorder(null);
         txtID.setEnabled(false);
         txtID.setFocusable(false);
         txtID.setOpaque(true);
+        pnlInfoCustomer.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 154, -1));
 
         txtName.setBorder(null);
         txtName.setEnabled(false);
         txtName.setOpaque(true);
+        pnlInfoCustomer.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 154, -1));
 
         txtPhoneNumber.setBorder(null);
         txtPhoneNumber.setEnabled(false);
         txtPhoneNumber.setOpaque(true);
+        pnlInfoCustomer.add(txtPhoneNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 162, -1));
 
         buttonGroup1.add(rdbNu);
-        rdbNu.setText("Nu");
+        rdbNu.setText("Female");
         rdbNu.setEnabled(false);
         rdbNu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdbNuActionPerformed(evt);
             }
         });
+        pnlInfoCustomer.add(rdbNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
 
         buttonGroup1.add(rdbNam);
-        rdbNam.setText("Nam");
+        rdbNam.setText("Male");
         rdbNam.setEnabled(false);
         rdbNam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdbNamActionPerformed(evt);
             }
         });
+        pnlInfoCustomer.add(rdbNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
 
         spnDOB.setModel(new javax.swing.SpinnerDateModel());
         spnDOB.setEditor(new javax.swing.JSpinner.DateEditor(spnDOB, "dd/MM/YYYY"));
         spnDOB.setEnabled(false);
+        pnlInfoCustomer.add(spnDOB, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 162, -1));
 
         lblWork.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblWork.setForeground(new java.awt.Color(255, 255, 255));
-        lblWork.setText("Nghe nghiep");
+        lblWork.setText("Job");
         lblWork.setEnabled(false);
+        pnlInfoCustomer.add(lblWork, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, -1, -1));
 
         txtWork.setBorder(null);
         txtWork.setEnabled(false);
         txtWork.setOpaque(true);
+        pnlInfoCustomer.add(txtWork, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 190, 162, -1));
 
         btnAdd.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_add_user_group_woman_man_30px.png"))); // NOI18N
@@ -406,6 +437,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
                 btnAddActionPerformed(evt);
             }
         });
+        pnlInfoCustomer.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, 130, -1));
 
         btnDel.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_delete_user_male_30px.png"))); // NOI18N
@@ -416,6 +448,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
                 btnDelActionPerformed(evt);
             }
         });
+        pnlInfoCustomer.add(btnDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, 130, -1));
 
         btnModify.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         btnModify.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_edit_profile_30px.png"))); // NOI18N
@@ -426,6 +459,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
                 btnModifyActionPerformed(evt);
             }
         });
+        pnlInfoCustomer.add(btnModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 130, -1));
 
         btnClear.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_broom_30px.png"))); // NOI18N
@@ -436,80 +470,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
                 btnClearActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout pnlInfoCustomerLayout = new javax.swing.GroupLayout(pnlInfoCustomer);
-        pnlInfoCustomer.setLayout(pnlInfoCustomerLayout);
-        pnlInfoCustomerLayout.setHorizontalGroup(
-            pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInfoCustomerLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblID)
-                    .addComponent(lblSex)
-                    .addComponent(lblName))
-                .addGap(22, 22, 22)
-                .addGroup(pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlInfoCustomerLayout.createSequentialGroup()
-                        .addGroup(pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                                .addComponent(txtID))
-                            .addComponent(rdbNam))
-                        .addGap(39, 39, 39)
-                        .addGroup(pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPhoneNumber)
-                            .addComponent(lblDOB)
-                            .addComponent(lblWork)))
-                    .addComponent(rdbNu))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtWork, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spnDOB, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnDel)
-                    .addGroup(pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnAdd)
-                        .addComponent(btnModify)
-                        .addComponent(btnClear)))
-                .addContainerGap(50, Short.MAX_VALUE))
-        );
-        pnlInfoCustomerLayout.setVerticalGroup(
-            pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInfoCustomerLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlInfoCustomerLayout.createSequentialGroup()
-                        .addComponent(btnAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnClear)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnModify)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDel))
-                    .addGroup(pnlInfoCustomerLayout.createSequentialGroup()
-                        .addGroup(pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblID)
-                            .addComponent(lblDOB)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spnDOB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblName)
-                            .addComponent(lblPhoneNumber)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
-                        .addGroup(pnlInfoCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblSex)
-                            .addComponent(rdbNam)
-                            .addComponent(lblWork)
-                            .addComponent(txtWork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(rdbNu)))
-                .addContainerGap(53, Short.MAX_VALUE))
-        );
+        pnlInfoCustomer.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 130, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -520,21 +481,21 @@ public class Enroll_Gym extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(btnClose)
-                        .addGap(461, 461, 461)
+                        .addGap(399, 399, 399)
                         .addComponent(jLabel7)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(pnlFindID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(pnlFindID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(pnlInfoCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(pnlInfoCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(182, 182, 182))))
@@ -547,7 +508,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
                     .addComponent(btnClose)
                     .addComponent(jLabel7))
                 .addGap(22, 22, 22)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -556,7 +517,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
                             .addComponent(pnlFindID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(pnlInfoCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pnlInfoCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(14, 14, 14))
         );
@@ -565,7 +526,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1129, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1109, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1036,6 +997,23 @@ public class Enroll_Gym extends javax.swing.JFrame {
         this.setVisible(false);
         
     }//GEN-LAST:event_btnCloseActionPerformed
+
+    int xx, xy;
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        this.setOpacity((float)0.8);
+        xx=evt.getX();
+        xy=evt.getY();
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        this.setOpacity((float)1.0);
+    }//GEN-LAST:event_formMouseReleased
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        int x= evt.getXOnScreen();
+        int y=evt.getYOnScreen();
+        this.setLocation(x-xx, y-xy);
+    }//GEN-LAST:event_formMouseDragged
 
     
     /**

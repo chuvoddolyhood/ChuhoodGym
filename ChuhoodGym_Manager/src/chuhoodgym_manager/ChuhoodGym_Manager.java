@@ -6,7 +6,6 @@
 package chuhoodgym_manager;
 
 import java.util.Scanner;
-import chuhoodgym_manager.Date;
 
 /**
  *
