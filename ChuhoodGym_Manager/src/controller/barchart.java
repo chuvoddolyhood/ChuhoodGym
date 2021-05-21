@@ -69,16 +69,16 @@ public class barchart{
     }
     
     //Sau khi bam nut show chart
-    private static int monCus, tueCus, wedCus, thuCus, friCus, satCus, sunCus;
+    private static float monCus, tueCus, wedCus, thuCus, friCus, satCus, sunCus; //Bat buoc phai static
     
         public void pushNumberIntoBarChart(int mon, int tue, int wed, int thu, int fri, int sat, int sun){
-        monCus=mon;
-        tueCus=tue;
-        wedCus=wed;
-        thuCus=thu;
-        friCus=fri;
-        satCus=sat;
-        sunCus=sun;
+        monCus=(float)mon/4;
+        tueCus=(float)tue/4;
+        wedCus=(float)wed/4;
+        thuCus=(float)thu/4;
+        friCus=(float)fri/4;
+        satCus=(float)sat/4;
+        sunCus=(float)sun/4;
         
     }
     

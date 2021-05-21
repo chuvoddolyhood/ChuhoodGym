@@ -87,6 +87,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
         btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         pnlInfoCustomer.setEnabled(false);
 

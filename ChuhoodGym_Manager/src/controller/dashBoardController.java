@@ -131,8 +131,11 @@ public class dashBoardController {
     
     
     private void getNumberOfCustomerInTheMonth(){
-        int[] dayOfWeek= new int[7];
-        String query="SELECT COUNT(ID_Customer) AS So_luong_KH FROM Weekdays WHERE MONTH(Date_Workout)=? "
+        int[] numberCustomerOfWeek= new int[7]; //Luu so luong khach hang theo thu trong tuan goi tu database
+        String[] dayOfWeekDTB= new String[7]; //Luu ten thu trong tuan goi tu database
+        String[] date = {"Fri", "Mon", "Sat", "Sun", "Thu", "Tue", "Wed"}; //Dung de doi chieu
+
+        String query="SELECT ID_Weekdays, COUNT(ID_Customer) AS So_luong_KH FROM Weekdays WHERE MONTH(Date_Workout)=? "
                 + "AND YEAR(Date_Workout)=? GROUP BY ID_Weekdays ORDER BY ID_Weekdays ASC;";           
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -144,22 +147,35 @@ public class dashBoardController {
             
             ResultSet rs = ps.executeQuery();
             
-            int i=0;
+            int i=0; //Bien chay ngay trong CSDL dayOfWeek[]
+            int j=0; //Bien chay ngay doi chieu String[] date
+            int old_j = 0; //Bien luu tam cua bien j cu
             while (rs.next()) { //rs se chay den cuoi
-                dayOfWeek[i]=rs.getInt("So_luong_KH");
+                dayOfWeekDTB[i]=rs.getString("ID_Weekdays");
+                //Xu ly ngay trong CSDL phai khop voi ngay xuat ra tren barchart
+                //Tranh truong hop co 1 ngay ko co khach ma gan nham vao ngay khac
+                do{
+                    if(dayOfWeekDTB[i].equals(date[j])){
+                        numberCustomerOfWeek[i]=rs.getInt("So_luong_KH");
+                        old_j=j;
+                    }
+                    else j++;
+                }while(!dayOfWeekDTB[i].equals(date[old_j]));
+
                 i++;
+                j++;
             }
             
         }catch(Exception ex){
                 System.out.println(ex);
         }
-        fri=dayOfWeek[0];
-        mon=dayOfWeek[1];
-        sat=dayOfWeek[2];
-        sun=dayOfWeek[3];
-        thu=dayOfWeek[4];
-        tue=dayOfWeek[5];
-        wed=dayOfWeek[6];
+        fri=numberCustomerOfWeek[0];
+        mon=numberCustomerOfWeek[1];
+        sat=numberCustomerOfWeek[2];
+        sun=numberCustomerOfWeek[3];
+        thu=numberCustomerOfWeek[4];
+        tue=numberCustomerOfWeek[5];
+        wed=numberCustomerOfWeek[6];
     }
     
     private int mon, tue, wed, thu, fri, sat, sun;
