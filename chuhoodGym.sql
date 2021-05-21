@@ -291,7 +291,7 @@ WHERE ID_Weekdays='Mon';
 --Dem so luong khach hang vao cac ngay trong tuan trong 1 thang 
 SELECT ID_Weekdays, COUNT(ID_Customer) AS So_luong_KH
 FROM Weekdays 
-WHERE MONTH( Date_Workout)='4' AND YEAR( Date_Workout)='2021'
+WHERE MONTH( Date_Workout)='5' AND YEAR( Date_Workout)='2021'
 GROUP BY ID_Weekdays
 ORDER BY ID_Weekdays ASC;
 
