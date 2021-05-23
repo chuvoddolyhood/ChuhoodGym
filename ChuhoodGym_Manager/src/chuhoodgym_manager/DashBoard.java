@@ -381,6 +381,9 @@ public class DashBoard extends javax.swing.JFrame {
             }
         });
         lblCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCustomerMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 lblCustomerMouseExited(evt);
             }
@@ -1161,6 +1164,12 @@ public class DashBoard extends javax.swing.JFrame {
         barchart bc = new barchart();
         bc.setupBarChart(pnlBarChart);
     }//GEN-LAST:event_btnShowTrackingActionPerformed
+
+    private void lblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCustomerMouseClicked
+        Customer c = new Customer();
+        c.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblCustomerMouseClicked
 
 
     //Bar Chart
