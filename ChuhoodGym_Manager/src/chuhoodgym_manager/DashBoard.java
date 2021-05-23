@@ -1118,7 +1118,9 @@ public class DashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_lblAdminMouseMoved
 
     private void lblAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminMouseClicked
-        // TODO add your handling code here:
+        Admin ad=new Admin();
+        ad.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_lblAdminMouseClicked
 
     private void lblAdminMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminMouseExited
