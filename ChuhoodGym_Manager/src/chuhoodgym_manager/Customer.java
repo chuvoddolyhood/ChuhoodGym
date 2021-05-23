@@ -55,8 +55,6 @@ public class Customer extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -65,6 +63,8 @@ public class Customer extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -168,14 +168,6 @@ public class Customer extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(120, 168, 252));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_teamwork_90px.png"))); // NOI18N
-        jPanel6.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Team");
-        jPanel6.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
-
         lblTotal.setFont(new java.awt.Font("Tahoma", 1, 50)); // NOI18N
         lblTotal.setForeground(new java.awt.Color(255, 255, 255));
         lblTotal.setText("0");
@@ -220,6 +212,14 @@ public class Customer extends javax.swing.JFrame {
         );
 
         jPanel6.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 380, 2));
+
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_bench_press_90px.png"))); // NOI18N
+        jPanel6.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("customer");
+        jPanel6.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -272,7 +272,6 @@ public class Customer extends javax.swing.JFrame {
 
         spnDOB.setFont(new java.awt.Font("Tahoma", 2, 20)); // NOI18N
         spnDOB.setModel(new javax.swing.SpinnerDateModel());
-        spnDOB.setBorder(null);
         spnDOB.setEditor(new javax.swing.JSpinner.DateEditor(spnDOB, "dd/MM/YYYY"));
         spnDOB.setOpaque(true);
 
@@ -802,9 +801,9 @@ public class Customer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
