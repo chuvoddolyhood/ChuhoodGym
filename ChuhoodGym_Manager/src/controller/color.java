@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chuhoodgym_manager;
+package controller;
 
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -28,4 +28,6 @@ public class color {
     public void resetColorPanel(JPanel panel){
         panel.setBackground(new Color(44,52,58));
     }
+    
+    
 }

@@ -6,6 +6,7 @@
 package chuhoodgym_manager;
 
 
+import controller.color;
 import controller.barchart;
 import controller.dashBoardController;
 import java.sql.Connection;
