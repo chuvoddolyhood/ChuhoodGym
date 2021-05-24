@@ -319,5 +319,22 @@ DELETE Gym_Contract WHERE ID_Contract='HD012';
 
 SELECT * FROM Gym_Contract WHERE ID_Contract='C007';
 
+--Dem tong so tien va so hop dong trong ngay
+SELECT SUM(Cost) AS Tong_Tien, COUNT(*) AS Tong_So_HD FROM Gym_Contract WHERE Date_Enroll='2021-05-19';
 
-SELECT * FROM 
+
+--Dem tong so nguoi den phong
+SELECT COUNT(*) AS So_Luong_Nguoi FROM Weekdays WHERE Date_Workout='2021-05-24';
+
+--Dem tong so tien trong thang
+SELECT SUM(Cost) AS Tong_Tien FROM Gym_Contract WHERE MONTH(Date_Enroll)='4' AND YEAR( Date_Enroll)='2021';
+
+--Dem tong so tien trong nam
+SELECT SUM(Cost) AS Tong_Tien FROM Gym_Contract WHERE YEAR( Date_Enroll)='2021';
+
+
+SELECT *
+FROM Gym_Contract 
+GROUP BY MONTH(Date_Enroll)
+
+SELECT DISTINCT MONTH(Date_Enroll) FROM Gym_Contract

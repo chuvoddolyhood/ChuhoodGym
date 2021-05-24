@@ -830,6 +830,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
             String query="SELECT ID_Package FROM Gym_service_package WHERE Title_Package=?;";
             Connection connector=DriverManager.getConnection(dbURL);
             PreparedStatement ps=connector.prepareStatement(query);
+            //Co BUG neu chon nham dau *
             ps.setString(1, cmbPackage.getItemAt(cmbPackage.getSelectedIndex()));
             ResultSet rs=ps.executeQuery();
             while(rs.next()){

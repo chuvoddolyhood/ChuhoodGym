@@ -5,12 +5,17 @@
  */
 package chuhoodgym_manager;
 
+import controller.adminController;
 import controller.barchart;
 import controller.dashBoardController;
 import controller.lineChart;
 import java.awt.Color;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 /**
  *
@@ -27,8 +32,17 @@ public class Admin extends javax.swing.JFrame {
         //set full screen
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         
+        //Linechart
         lineChart line= new lineChart();
         line.setupLineChart(pnlLineChart);
+        
+        //show current day
+        adminController ac = new adminController();
+        txtCurrentDate.setText(ac.getCurrentDayFromSystem());
+
+        //loadNumber
+        ac.reloadForm(lblNumberOfMoney, lblNumberOfCustomer, lblNumberOfContract);
+        
 
     }
 
@@ -44,9 +58,10 @@ public class Admin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        lblCalendar = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
+        lblReload = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -56,17 +71,17 @@ public class Admin extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblNumberOfMoney = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lblNumberOfCustomer = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lblNumberOfContract = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         pnlTracking = new javax.swing.JPanel();
         cmbMonthTracking = new javax.swing.JComboBox<>();
@@ -76,17 +91,17 @@ public class Admin extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         pnlLineChart = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
+        lblTotalAverage = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
+        lblTotalMoneyRevenue = new javax.swing.JLabel();
+        cmbMonthReport = new javax.swing.JComboBox<>();
+        ycsYearReport = new com.toedter.calendar.JYearChooser();
+        jLabel11 = new javax.swing.JLabel();
+        btnReport = new javax.swing.JButton();
+        txtCurrentDate = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1920, 1040));
@@ -109,14 +124,27 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
-        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_calendar_30px_1.png"))); // NOI18N
-        jLabel27.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_calendar_30px_1.png"))); // NOI18N
+        lblCalendar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCalendar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblCalendarMouseEntered(evt);
+            }
+        });
 
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_bell_30px.png"))); // NOI18N
         jLabel28.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_menu_30px.png"))); // NOI18N
         jLabel29.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        lblReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_refresh_30px_1.png"))); // NOI18N
+        lblReload.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblReload.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblReloadMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -125,10 +153,12 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1547, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1488, Short.MAX_VALUE)
+                .addComponent(lblReload)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel28)
                 .addGap(36, 36, 36)
-                .addComponent(jLabel27)
+                .addComponent(lblCalendar)
                 .addGap(35, 35, 35)
                 .addComponent(jLabel29)
                 .addGap(69, 69, 69))
@@ -145,7 +175,8 @@ public class Admin extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel28)
                             .addComponent(jLabel29)
-                            .addComponent(jLabel27))))
+                            .addComponent(lblCalendar)
+                            .addComponent(lblReload))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -240,10 +271,10 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 0, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("500");
-        jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+        lblNumberOfMoney.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
+        lblNumberOfMoney.setForeground(new java.awt.Color(255, 255, 255));
+        lblNumberOfMoney.setText("0");
+        jPanel5.add(lblNumberOfMoney, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 25)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -287,10 +318,10 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel7.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 0, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("20");
-        jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
+        lblNumberOfCustomer.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
+        lblNumberOfCustomer.setForeground(new java.awt.Color(255, 255, 255));
+        lblNumberOfCustomer.setText("0");
+        jPanel7.add(lblNumberOfCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 25)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -334,10 +365,10 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 0, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("15");
-        jPanel9.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
+        lblNumberOfContract.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
+        lblNumberOfContract.setForeground(new java.awt.Color(255, 255, 255));
+        lblNumberOfContract.setText("0");
+        jPanel9.add(lblNumberOfContract, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 25)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -414,17 +445,13 @@ public class Admin extends javax.swing.JFrame {
             .addGap(0, 473, Short.MAX_VALUE)
         );
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText("Total Revenue");
+        jLabel15.setText("Total Revenue Report");
 
-        jLabel16.setText("Day");
-
-        jLabel17.setText("Month");
-
-        jLabel18.setText("100000");
-
-        jLabel19.setText("20000000");
+        lblTotalAverage.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblTotalAverage.setForeground(new java.awt.Color(0, 0, 0));
+        lblTotalAverage.setText("0");
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 0, 0));
@@ -432,15 +459,27 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel21.setText("Month");
 
-        jLabel22.setText("20000000");
+        jLabel25.setText("Year");
 
-        jLabel23.setText("Month");
+        lblTotalMoneyRevenue.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblTotalMoneyRevenue.setForeground(new java.awt.Color(0, 0, 0));
+        lblTotalMoneyRevenue.setText("0");
 
-        jLabel24.setText("20000000");
+        cmbMonthReport.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        cmbMonthReport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
-        jLabel25.setText("Month");
+        ycsYearReport.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jLabel26.setText("20000000");
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("Total");
+
+        btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_search_30px.png"))); // NOI18N
+        btnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -449,83 +488,71 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(pnlLineChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel15))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel11Layout.createSequentialGroup()
-                                    .addComponent(jLabel21)
-                                    .addGap(48, 48, 48)
-                                    .addComponent(jLabel22))
-                                .addGroup(jPanel11Layout.createSequentialGroup()
-                                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel16)
-                                        .addComponent(jLabel17))
-                                    .addGap(48, 48, 48)
-                                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel18)
-                                        .addComponent(jLabel19))))
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel11Layout.createSequentialGroup()
-                                        .addComponent(jLabel25)
-                                        .addGap(48, 48, 48)
-                                        .addComponent(jLabel26))
-                                    .addGroup(jPanel11Layout.createSequentialGroup()
-                                        .addComponent(jLabel23)
-                                        .addGap(48, 48, 48)
-                                        .addComponent(jLabel24)))))))
-                .addContainerGap(179, Short.MAX_VALUE))
-            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                    .addContainerGap(790, Short.MAX_VALUE)
-                    .addComponent(jLabel20)
-                    .addGap(96, 96, 96)))
+                            .addComponent(jLabel21)
+                            .addComponent(cmbMonthReport, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ycsYearReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnReport)
+                        .addGap(68, 68, 68))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTotalMoneyRevenue)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel20)
+                            .addComponent(lblTotalAverage))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(pnlLineChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel18))
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel19))
-                        .addGap(80, 80, 80)
                         .addComponent(jLabel15)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel22))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel24))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel25)
-                            .addComponent(jLabel26))))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel25)
+                                    .addComponent(jLabel21))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbMonthReport, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ycsYearReport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnReport))
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTotalMoneyRevenue)
+                        .addGap(91, 91, 91)
+                        .addComponent(jLabel20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTotalAverage))
+                    .addComponent(pnlLineChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
-            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel11Layout.createSequentialGroup()
-                    .addGap(61, 61, 61)
-                    .addComponent(jLabel20)
-                    .addContainerGap(437, Short.MAX_VALUE)))
         );
 
         jPanel1.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 440, 1150, 520));
+
+        txtCurrentDate.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        txtCurrentDate.setForeground(new java.awt.Color(0, 0, 0));
+        txtCurrentDate.setText("/");
+        jPanel1.add(txtCurrentDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(1720, 150, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 25)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Today");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1790, 120, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -597,6 +624,25 @@ public class Admin extends javax.swing.JFrame {
         jPanel10.setBackground(new Color(98,205,207));
     }//GEN-LAST:event_jPanel9MouseExited
 
+    private void lblReloadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReloadMouseClicked
+        adminController ac = new adminController();
+        ac.reloadForm(lblNumberOfMoney, lblNumberOfCustomer, lblNumberOfContract);
+    }//GEN-LAST:event_lblReloadMouseClicked
+
+    private void lblCalendarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCalendarMouseEntered
+        
+    }//GEN-LAST:event_lblCalendarMouseEntered
+
+    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
+        String month=cmbMonthReport.getItemAt(cmbMonthReport.getSelectedIndex());
+        String year=String.valueOf(ycsYearReport.getYear());
+        adminController ac= new adminController();
+        ac.getMoneyRevenue(month, year, lblTotalMoneyRevenue);
+        
+        //Set value of Average's Total Money
+        ac.setMoneyAverage(lblTotalAverage, year);
+    }//GEN-LAST:event_btnReportActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -633,7 +679,9 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnReport;
     private javax.swing.JButton btnShowTracking;
+    private javax.swing.JComboBox<String> cmbMonthReport;
     private javax.swing.JComboBox<String> cmbMonthTracking;
     private javax.swing.JComboBox<String> cmbYearTracking;
     private javax.swing.JLabel jLabel1;
@@ -643,19 +691,10 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
@@ -664,7 +703,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -676,8 +714,17 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel lblCalendar;
+    private javax.swing.JLabel lblNumberOfContract;
+    private javax.swing.JLabel lblNumberOfCustomer;
+    private javax.swing.JLabel lblNumberOfMoney;
+    private javax.swing.JLabel lblReload;
+    private javax.swing.JLabel lblTotalAverage;
+    private javax.swing.JLabel lblTotalMoneyRevenue;
     private javax.swing.JPanel pnlBarChart;
     private javax.swing.JPanel pnlLineChart;
     private javax.swing.JPanel pnlTracking;
+    private javax.swing.JLabel txtCurrentDate;
+    private com.toedter.calendar.JYearChooser ycsYearReport;
     // End of variables declaration//GEN-END:variables
 }
