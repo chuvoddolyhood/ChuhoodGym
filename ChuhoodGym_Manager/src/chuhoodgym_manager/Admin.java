@@ -11,11 +11,6 @@ import controller.dashBoardController;
 import controller.lineChart;
 import java.awt.Color;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
 
 /**
  *
@@ -32,18 +27,17 @@ public class Admin extends javax.swing.JFrame {
         //set full screen
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-        //Linechart
-        lineChart line= new lineChart();
-        line.setupLineChart(pnlLineChart);
-        
         //show current day
         adminController ac = new adminController();
         txtCurrentDate.setText(ac.getCurrentDayFromSystem());
 
-        //loadNumber
+        //loadFrameInfoNumber
         ac.reloadForm(lblNumberOfMoney, lblNumberOfCustomer, lblNumberOfContract);
         
-
+        //LineChart
+        ac.showLineChart();
+        lineChart lc = new lineChart();
+        lc.setupLineChart(pnlLineChart);
     }
 
     /**
@@ -464,7 +458,6 @@ public class Admin extends javax.swing.JFrame {
         cmbMonthReport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
         ycsYearReport.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ycsYearReport.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
@@ -637,7 +630,10 @@ public class Admin extends javax.swing.JFrame {
         //Set value of Average's Total Money
         ac.setMoneyAverage(lblTotalAverage, year);
         
+        //LineChart
         ac.showLineChart();
+        lineChart lc = new lineChart();
+        lc.setupLineChart(pnlLineChart);
     }//GEN-LAST:event_btnReportActionPerformed
 
     /**

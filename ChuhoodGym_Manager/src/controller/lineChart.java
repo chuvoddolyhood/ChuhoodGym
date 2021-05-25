@@ -21,58 +21,42 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * @author Tran Nhan Nghia
  */
 public class lineChart {
-    public JFreeChart createChart(){
+    public JFreeChart createChart() {
         JFreeChart lineChart = ChartFactory.createLineChart(
-            "The Number Of Customers Chart",
-            "Month", "Peoples",
-            createDataset(), PlotOrientation.VERTICAL, false, false, false);
-    
+                "The Number Of Customers In The Year",
+                "Month", "Peoples",
+                createDataset(), PlotOrientation.VERTICAL, false, false, false);
+       
+        
         lineChart.setBackgroundPaint(new Color(198,198,198));
+//        barChart.setBorderVisible(false);
+//        barChart.setBorderPaint(new Color(54, 63, 73));
+//        barChart.getCategoryPlot().setBackgroundPaint(new Color(54, 63, 73));
+//        barChart.getCategoryPlot().setDomainGridlinePaint(new Color(54, 63, 73));
+//        barChart.getCategoryPlot().setDomainGridlinesVisible(false);
+//        barChart.getCategoryPlot().setOutlinePaint(new Color(54, 63, 73));
         
         return lineChart;
     }
 
-   private CategoryDataset createDataset( ) {
-      DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
-      dataset.addValue( thang1 , "So nguoi" , "1" );
-//      dataset.addValue( month[1] , "So nguoi" , "2" );
-//      dataset.addValue( month[2] , "So nguoi" , "3" );
-      dataset.addValue( thang4 , "So nguoi" , "4" );
-      dataset.addValue( thang5 , "So nguoi" , "5" );
-//      dataset.addValue( month[5] , "So nguoi" , "6" );
-//      dataset.addValue( month[6] , "So nguoi" , "7" );
-//      dataset.addValue( month[7] , "So nguoi" , "8" );
-//      dataset.addValue( month[8] , "So nguoi" , "9" );
-//      dataset.addValue( month[9] , "So nguoi" , "10" );
-//      dataset.addValue( month[10] , "So nguoi" , "11" );
-      dataset.addValue( 100 , "So nguoi" , "12" );
+    private CategoryDataset createDataset() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(month[0], "Số người", "Jan");
+        dataset.addValue(month[1], "Số người", "Feb");
+        dataset.addValue(month[2], "Số người", "Mar");
+        dataset.addValue(month[3], "Số người", "Apr");
+        dataset.addValue(month[4], "Số người", "May");
+        dataset.addValue(month[5], "Số người", "Jun");
+        dataset.addValue(month[6], "Số người", "Jul");
+        dataset.addValue(month[7], "Số người", "Aug");
+        dataset.addValue(month[8], "Số người", "Sep");
+        dataset.addValue(month[9], "Số người", "Oct");
+        dataset.addValue(month[10], "Số người", "Nov");
+        dataset.addValue(month[11], "Số người", "Dec");
 
-//      for(int i=0;i<12;i++){
-
-           System.out.println(thang1 +""+thang2 +""+thang3 +""+thang4 +""+thang5);
-//        }
-      
-      return dataset;
-   }
-   
-//    private static int month[] = new int[12];
-    public static int thang1,thang2,thang3, thang4, thang5;
-    //Chuyen so luong KH lay duoc tu CSDL sang Line Chart
-    public void pushNumberOfCustomerToLineChart(ArrayList<Integer> customerPerMonth){
-//        for(int i=0;i<customerPerMonth.size();i++){
-//           month[i]=customerPerMonth.get(i); 
-            thang1=customerPerMonth.get(0);
-            thang2=customerPerMonth.get(1); 
-            thang3=customerPerMonth.get(2); 
-            thang4=customerPerMonth.get(3); 
-            thang5=customerPerMonth.get(4); 
-//        }
-//        for(int i=0;i<12;i++){
-           System.out.println(thang1 +""+thang2 +""+thang3 +""+thang4 +""+thang5);
-//        }
+        return dataset;
     }
     
-   
     public void setupLineChart(JPanel panel) {
         ChartPanel chartPanel = new ChartPanel(createChart());
         chartPanel.setPreferredSize(new java.awt.Dimension(panel.getWidth(), panel.getHeight()));
@@ -85,18 +69,13 @@ public class lineChart {
         panel.validate();
         panel.repaint();
     }
-   
-   
-//       public static void main(String[] args) {
-//        ChartPanel chartPanel = new ChartPanel(createChart());
-//        chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
-//        JFrame frame = new JFrame();
-//        frame.add(chartPanel);
-////        frame.setTitle("Biểu đồ JFreeChart trong Java Swing");
-//        frame.setSize(600, 400);
-////        frame.setLocationRelativeTo(null);
-////        frame.setResizable(false);
-//        frame.setVisible(true);
-//    }
+    
+    //Sau khi bam nut show chart
+    private static int[] month=new int[12];
+    public void pushNumberOfCustomerToLineChart(ArrayList<Integer> customerPerMonth){
+        for(int i=0;i<customerPerMonth.size();i++){
+            month[i]=customerPerMonth.get(i);
+        }
+    }
     
 }

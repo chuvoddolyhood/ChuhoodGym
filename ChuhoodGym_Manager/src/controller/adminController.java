@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -174,11 +175,11 @@ public class adminController {
         
         
     }
-    
+    int mon=4; int tue=2; int wed=1; int thu=7; int fri=9; int sat=3; int sun=3;
     public void showLineChart(){
         getNumberOfCustomerFromDatabase();
         //Chuyen so luong KH lay duoc tu CSDL sang Line Chart
         lineChart lc = new lineChart();
-        lc.pushNumberOfCustomerToLineChart(customerPerMonth);
+        lc.pushNumberOfCustomerToLineChart(customerPerMonth);  
     }
 }
