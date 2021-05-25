@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JLabel;
 
@@ -142,4 +143,42 @@ public class adminController {
         lblTotalAverage.setText(String.valueOf((float)moneyYear/12)+" VND");
     }
     
+    //Lay so luong KH trong cac thang tu CSDL
+//    private int[] customerPerMonth=new int[10000];
+    private final ArrayList<Integer> customerPerMonth = new ArrayList<>();
+    private void getNumberOfCustomerFromDatabase(){
+        String year=getCurrentDayFromSystem().substring(0, 4);
+        int numberOfCustomer = 0;
+        
+        
+        //Chay bien month de lay so luong 12 thang
+        for(int month=1;month<=12;month++){
+            try{
+                String queryFindPass="SELECT COUNT(*) AS So_Luong_KH FROM Weekdays WHERE MONTH(Date_Workout)=? AND YEAR( Date_Workout)=?;";
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String dbURL="jdbc:sqlserver://MSI\\SQLEXPRESS:1433; databaseName=ChuhoodGym; user=test; password=1234567890"; 
+                Connection con=DriverManager.getConnection(dbURL);
+                PreparedStatement ps=con.prepareStatement(queryFindPass);
+                ps.setInt(1, month);
+                ps.setString(2, year);
+                ResultSet rs=ps.executeQuery();
+
+                while(rs.next()){
+                    numberOfCustomer=rs.getInt(1);             
+                }           
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+            customerPerMonth.add(numberOfCustomer);
+        }
+        
+        
+    }
+    
+    public void showLineChart(){
+        getNumberOfCustomerFromDatabase();
+        //Chuyen so luong KH lay duoc tu CSDL sang Line Chart
+        lineChart lc = new lineChart();
+        lc.pushNumberOfCustomerToLineChart(customerPerMonth);
+    }
 }

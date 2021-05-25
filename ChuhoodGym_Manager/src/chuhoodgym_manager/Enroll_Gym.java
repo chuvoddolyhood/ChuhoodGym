@@ -8,8 +8,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -78,13 +81,13 @@ public class Enroll_Gym extends javax.swing.JFrame {
         txtPhoneNumber = new javax.swing.JTextField();
         rdbNu = new javax.swing.JRadioButton();
         rdbNam = new javax.swing.JRadioButton();
-        spnDOB = new javax.swing.JSpinner();
         lblWork = new javax.swing.JLabel();
         txtWork = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        dcsDOB = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -412,11 +415,6 @@ public class Enroll_Gym extends javax.swing.JFrame {
         });
         pnlInfoCustomer.add(rdbNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
 
-        spnDOB.setModel(new javax.swing.SpinnerDateModel());
-        spnDOB.setEditor(new javax.swing.JSpinner.DateEditor(spnDOB, "dd/MM/YYYY"));
-        spnDOB.setEnabled(false);
-        pnlInfoCustomer.add(spnDOB, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 162, -1));
-
         lblWork.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblWork.setForeground(new java.awt.Color(255, 255, 255));
         lblWork.setText("Job");
@@ -471,6 +469,9 @@ public class Enroll_Gym extends javax.swing.JFrame {
             }
         });
         pnlInfoCustomer.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 130, -1));
+
+        dcsDOB.setEnabled(false);
+        pnlInfoCustomer.add(dcsDOB, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 160, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -588,7 +589,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
             String id=txtID.getText();
             String name=txtName.getText();
             String sex=gioiTinh;
-            String dob=new SimpleDateFormat("yyyy-MM-dd").format(spnDOB.getValue());
+            String dob=new SimpleDateFormat("yyyy-MM-dd").format(dcsDOB.getDate());
             String phoneNumber=txtPhoneNumber.getText();
             String work=txtWork.getText();
 
@@ -645,7 +646,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
         String id=txtID.getText();
         String name=txtName.getText();
         String sex=gioiTinh;
-        String dob=new SimpleDateFormat("yyyy-MM-dd").format(spnDOB.getValue());
+        String dob=new SimpleDateFormat("yyyy-MM-dd").format(dcsDOB.getDate());
         String phoneNumber=txtPhoneNumber.getText();
         String work=txtWork.getText();
 
@@ -681,7 +682,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
         setID();
         txtName.setText("");
         rdbNam.setSelected(true);
-        spnDOB.setValue(cal.getTime());
+        dcsDOB.setDate(cal.getTime());
         txtPhoneNumber.setText("");
         txtWork.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
@@ -696,10 +697,14 @@ public class Enroll_Gym extends javax.swing.JFrame {
         else rdbNu.setSelected(true);
         
 
-//        spnDOB.setValue(tblEmployee.getValueAt(selectedIndex, 3)+"");
-//        System.out.println(tblEmployee.getValueAt(selectedIndex, 3));
-//        System.out.println(cal.getTime());
-        //spnDOB.setValue(cal.getTime());
+        String getDate=tblCustomerRegister.getValueAt(selectedIndex, 3).toString();
+        java.util.Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(getDate);
+        } catch (ParseException ex) {
+            Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dcsDOB.setDate(date);
         
         txtPhoneNumber.setText(tblCustomerRegister.getValueAt(selectedIndex, 4)+"");
         txtWork.setText(tblCustomerRegister.getValueAt(selectedIndex, 5)+"");
@@ -714,7 +719,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
         rdbNam.setEnabled(true);
         rdbNu.setEnabled(true);
         lblDOB.setEnabled(true);
-        spnDOB.setEnabled(true);
+        dcsDOB.setEnabled(true);
         lblPhoneNumber.setEnabled(true);
         txtPhoneNumber.setEnabled(true);
         lblWork.setEnabled(true);
@@ -747,7 +752,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
         rdbNam.setEnabled(false);
         rdbNu.setEnabled(false);
         lblDOB.setEnabled(false);
-        spnDOB.setEnabled(false);
+        dcsDOB.setEnabled(false);
         lblPhoneNumber.setEnabled(false);
         txtPhoneNumber.setEnabled(false);
         lblWork.setEnabled(false);
@@ -1067,6 +1072,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cmbPackage;
+    private com.toedter.calendar.JDateChooser dcsDOB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel7;
@@ -1089,7 +1095,6 @@ public class Enroll_Gym extends javax.swing.JFrame {
     private javax.swing.JPanel pnlInfoCustomer;
     private javax.swing.JRadioButton rdbNam;
     private javax.swing.JRadioButton rdbNu;
-    private javax.swing.JSpinner spnDOB;
     private javax.swing.JTable tblCustomerRegister;
     private javax.swing.JTextField txtFindIDCustomer;
     private javax.swing.JTextField txtID;

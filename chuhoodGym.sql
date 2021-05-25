@@ -338,3 +338,6 @@ FROM Gym_Contract
 GROUP BY MONTH(Date_Enroll)
 
 SELECT DISTINCT MONTH(Date_Enroll) FROM Gym_Contract
+
+--Dem so luong KH trong cach thang
+SELECT COUNT(*) AS So_Luong_KH FROM Weekdays WHERE MONTH(Date_Workout)='5' AND YEAR( Date_Workout)='2021';

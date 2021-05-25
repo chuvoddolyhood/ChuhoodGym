@@ -126,11 +126,6 @@ public class Admin extends javax.swing.JFrame {
 
         lblCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_calendar_30px_1.png"))); // NOI18N
         lblCalendar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblCalendar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblCalendarMouseEntered(evt);
-            }
-        });
 
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_bell_30px.png"))); // NOI18N
         jLabel28.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -455,7 +450,7 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel20.setText("The Average Revenue Report");
+        jLabel20.setText("The Average Revenue");
 
         jLabel21.setText("Month");
 
@@ -468,6 +463,7 @@ public class Admin extends javax.swing.JFrame {
         cmbMonthReport.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         cmbMonthReport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
+        ycsYearReport.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ycsYearReport.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -494,7 +490,7 @@ public class Admin extends javax.swing.JFrame {
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel21)
                             .addComponent(cmbMonthReport, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ycsYearReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel25))
@@ -518,23 +514,26 @@ public class Admin extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(30, 30, 30)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel25)
-                                    .addComponent(jLabel21))
+                                .addComponent(jLabel15)
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel11Layout.createSequentialGroup()
+                                        .addComponent(jLabel21)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cmbMonthReport, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(2, 2, 2))
+                                    .addComponent(btnReport)))
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addComponent(jLabel25)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbMonthReport, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ycsYearReport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(btnReport))
+                                .addComponent(ycsYearReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(50, 50, 50)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotalMoneyRevenue)
-                        .addGap(91, 91, 91)
+                        .addGap(34, 34, 34)
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotalAverage))
@@ -629,10 +628,6 @@ public class Admin extends javax.swing.JFrame {
         ac.reloadForm(lblNumberOfMoney, lblNumberOfCustomer, lblNumberOfContract);
     }//GEN-LAST:event_lblReloadMouseClicked
 
-    private void lblCalendarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCalendarMouseEntered
-        
-    }//GEN-LAST:event_lblCalendarMouseEntered
-
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
         String month=cmbMonthReport.getItemAt(cmbMonthReport.getSelectedIndex());
         String year=String.valueOf(ycsYearReport.getYear());
@@ -641,6 +636,8 @@ public class Admin extends javax.swing.JFrame {
         
         //Set value of Average's Total Money
         ac.setMoneyAverage(lblTotalAverage, year);
+        
+        ac.showLineChart();
     }//GEN-LAST:event_btnReportActionPerformed
 
     /**

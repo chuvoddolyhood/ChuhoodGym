@@ -4,7 +4,6 @@ package controller;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -51,7 +50,7 @@ public class barchart{
         dataset.addValue(friCus, "Số người", "Fri");
         dataset.addValue(satCus, "Số người", "Sat");
         dataset.addValue(sunCus, "Số người", "Sun");
-        
+
         return dataset;
     }
     
@@ -71,7 +70,7 @@ public class barchart{
     //Sau khi bam nut show chart
     private static float monCus, tueCus, wedCus, thuCus, friCus, satCus, sunCus; //Bat buoc phai static
     
-        public void pushNumberIntoBarChart(int mon, int tue, int wed, int thu, int fri, int sat, int sun){
+    public void pushNumberIntoBarChart(int mon, int tue, int wed, int thu, int fri, int sat, int sun){
         monCus=(float)mon/4;
         tueCus=(float)tue/4;
         wedCus=(float)wed/4;
@@ -79,7 +78,6 @@ public class barchart{
         friCus=(float)fri/4;
         satCus=(float)sat/4;
         sunCus=(float)sun/4;
-        
     }
     
     
