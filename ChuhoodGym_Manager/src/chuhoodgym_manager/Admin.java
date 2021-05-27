@@ -56,6 +56,7 @@ public class Admin extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         lblReload = new javax.swing.JLabel();
+        lblCreateAccountEmployee = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -135,6 +136,14 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
+        lblCreateAccountEmployee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_user_shield_30px.png"))); // NOI18N
+        lblCreateAccountEmployee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCreateAccountEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCreateAccountEmployeeMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -142,7 +151,9 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1488, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1427, Short.MAX_VALUE)
+                .addComponent(lblCreateAccountEmployee)
+                .addGap(31, 31, 31)
                 .addComponent(lblReload)
                 .addGap(29, 29, 29)
                 .addComponent(jLabel28)
@@ -165,7 +176,8 @@ public class Admin extends javax.swing.JFrame {
                             .addComponent(jLabel28)
                             .addComponent(jLabel29)
                             .addComponent(lblCalendar)
-                            .addComponent(lblReload))))
+                            .addComponent(lblReload)
+                            .addComponent(lblCreateAccountEmployee))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -636,6 +648,11 @@ public class Admin extends javax.swing.JFrame {
         lc.setupLineChart(pnlLineChart);
     }//GEN-LAST:event_btnReportActionPerformed
 
+    private void lblCreateAccountEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCreateAccountEmployeeMouseClicked
+        manageAccountEmployee mae = new manageAccountEmployee();
+        mae.setVisible(true);
+    }//GEN-LAST:event_lblCreateAccountEmployeeMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -708,6 +725,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel lblCalendar;
+    private javax.swing.JLabel lblCreateAccountEmployee;
     private javax.swing.JLabel lblNumberOfContract;
     private javax.swing.JLabel lblNumberOfCustomer;
     private javax.swing.JLabel lblNumberOfMoney;

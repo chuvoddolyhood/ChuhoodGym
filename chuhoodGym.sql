@@ -341,3 +341,14 @@ SELECT DISTINCT MONTH(Date_Enroll) FROM Gym_Contract
 
 --Dem so luong KH trong cach thang
 SELECT COUNT(*) AS So_Luong_KH FROM Weekdays WHERE MONTH(Date_Workout)='5' AND YEAR( Date_Workout)='2021';
+
+SELECT * FROM Account
+SELECT * FROm Employee
+
+SELECT E.ID_Employee, E.Name_Employee, A.Username, A.Password, W.Title_Work
+FROM Employee E JOIN Account A ON A.ID_Employee=E.ID_Employee
+				JOIN Work W ON E.ID_Work=W.ID_Work
+
+SELECT Name_Employee,  W.Title_Work
+FROM Employee E JOIN Work W ON E.ID_Work = W.ID_Work
+WHERE ID_Employee='E003'

@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -1119,9 +1120,14 @@ public class DashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_lblAdminMouseMoved
 
     private void lblAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminMouseClicked
-        Admin ad=new Admin();
-        ad.setVisible(true);
-        this.setVisible(false);
+        JPasswordField pwd = new JPasswordField(10);
+        int action = JOptionPane.showConfirmDialog(null, pwd,"Enter Password For Admin",JOptionPane.OK_CANCEL_OPTION);
+        if(pwd.getText().equals("root2401")){
+            Admin ad=new Admin();
+            ad.setVisible(true);
+            this.setVisible(false);
+        }
+        else JOptionPane.showMessageDialog(rootPane, "Ban Khong Phai Admin");
     }//GEN-LAST:event_lblAdminMouseClicked
 
     private void lblAdminMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAdminMouseExited

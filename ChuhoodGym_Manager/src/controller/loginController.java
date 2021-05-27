@@ -132,7 +132,7 @@ public class loginController extends Login{
                     Login l = new Login();
                     l.setVisible(false);
                 }   
-                else JOptionPane.showMessageDialog(rootPane, "Ban khong phai admin");
+                else JOptionPane.showMessageDialog(rootPane, "Ban khong phai quan ly");
             }
         }
         else JOptionPane.showMessageDialog(rootPane, "Dang nhap Khong Thanh Cong");
