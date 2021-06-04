@@ -76,26 +76,29 @@ public class loginController extends Login{
             ps.setString(1, userName);
             ResultSet rs=ps.executeQuery();
             
-            //Co Bug: Neu nhap khong dung username thi resultset se rong
-            
             if(rs.next()){
+                isCorrect=true;
                 passwordFromDatabase=rs.getString("Password");
-                if(rs.wasNull())
-                    JOptionPane.showMessageDialog(rootPane, "Tai khoan khong ton tai");
+            }
+            else{
+                isCorrect=false;
+                JOptionPane.showMessageDialog(rootPane, "Tai khoan khong ton tai");
+                Login l = new Login();
+                l.setVisible(true);
             }
             
         }catch(Exception ex){
             ex.printStackTrace();
         }
         
-        getPassword=passwordFromDatabase;
-        
-        //Giai ma password va kiem tra
-        if(decodePassword(passwordFromDatabase)==false){
-            isCorrect = false;
-            JOptionPane.showMessageDialog(rootPane, "Sai mat khau");
+        if(isCorrect==true){
+            getPassword=passwordFromDatabase;
+            //Giai ma password va kiem tra
+            if(decodePassword(passwordFromDatabase)==false){
+                isCorrect = false;
+                JOptionPane.showMessageDialog(rootPane, "Sai mat khau");
+            }
         }
-    
     return isCorrect;
 }
         
@@ -128,14 +131,22 @@ public class loginController extends Login{
                     DashBoard db=new DashBoard();
                     db.setVisible(true);
                     db.setUserNameAdmin(name);
-//                    super.setVisible(false);
                     Login l = new Login();
                     l.setVisible(false);
                 }   
-                else JOptionPane.showMessageDialog(rootPane, "Ban khong phai quan ly");
+                else{
+                    JOptionPane.showMessageDialog(rootPane, "Ban khong phai quan ly");
+                    Login l = new Login();
+                    l.setVisible(true);
+                }
             }
         }
-        else JOptionPane.showMessageDialog(rootPane, "Dang nhap Khong Thanh Cong");
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Dang nhap Khong Thanh Cong");
+            Login l = new Login();
+            l.setVisible(true);
+        }
+        
     }
         
     public void keypressedLogin(KeyEvent evt) {

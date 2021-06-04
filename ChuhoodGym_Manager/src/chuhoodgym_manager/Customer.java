@@ -639,8 +639,8 @@ public class Customer extends javax.swing.JFrame {
                 ps.setString(2, name);
                 ps.setString(3, sex);
                 ps.setString(4, dob);
-                ps.setString(6, phoneNumber);
-                ps.setString(5, work);
+                ps.setString(5, phoneNumber);
+                ps.setString(6, work);
                 
                 ps.executeUpdate();
             }catch(Exception ex){

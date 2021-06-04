@@ -396,6 +396,7 @@ public class Enroll_Gym extends javax.swing.JFrame {
         pnlInfoCustomer.add(txtPhoneNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 162, -1));
 
         buttonGroup1.add(rdbNu);
+        rdbNu.setForeground(new java.awt.Color(255, 255, 255));
         rdbNu.setText("Female");
         rdbNu.setEnabled(false);
         rdbNu.addActionListener(new java.awt.event.ActionListener() {
@@ -406,6 +407,8 @@ public class Enroll_Gym extends javax.swing.JFrame {
         pnlInfoCustomer.add(rdbNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
 
         buttonGroup1.add(rdbNam);
+        rdbNam.setForeground(new java.awt.Color(255, 255, 255));
+        rdbNam.setSelected(true);
         rdbNam.setText("Male");
         rdbNam.setEnabled(false);
         rdbNam.addActionListener(new java.awt.event.ActionListener() {
@@ -602,8 +605,8 @@ public class Enroll_Gym extends javax.swing.JFrame {
                 ps.setString(2, name);
                 ps.setString(3, sex);
                 ps.setString(4, dob);
-                ps.setString(6, phoneNumber);
-                ps.setString(5, work);
+                ps.setString(5, phoneNumber);
+                ps.setString(6, work);
 
                 ps.executeUpdate();
             }catch(Exception ex){
